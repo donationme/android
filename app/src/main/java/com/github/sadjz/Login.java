@@ -1,4 +1,4 @@
-package com.github.fundraisingapp;
+package com.github.sadjz;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
