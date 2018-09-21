@@ -1,8 +1,10 @@
-package com.github.sadjz;
+package com.github.sadjz.controllers;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import com.github.sadjz.R;
 
 
 public class WelcomeScreen extends AppCompatActivity {
@@ -15,8 +17,9 @@ public class WelcomeScreen extends AppCompatActivity {
     }
 
     public void onLoginPressed(View view) {
-        setContentView(R.layout.activity_login);
+        Intent intent = new Intent(this, Login.class);
 
+        startActivity(intent);
 
     }
 
