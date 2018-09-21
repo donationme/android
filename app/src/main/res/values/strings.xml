@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">FundraisingApp</string>
+    <string name="app_name">SadJZ</string>
+    <string name="app_login">Login</string>
+    <string name="app_register">Register</string>
+    <string name="app_username">Username</string>
+    <string name="app_password">Password</string>
+
 </resources>

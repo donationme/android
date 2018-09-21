@@ -1,4 +1,4 @@
-package com.github.fundraisingapp;
+package com.github.sadjz;
 
 import org.junit.Test;
 

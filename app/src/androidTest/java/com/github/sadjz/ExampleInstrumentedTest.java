@@ -1,4 +1,4 @@
-package com.github.fundraisingapp;
+package com.github.sadjz;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.github.fundraisingapp", appContext.getPackageName());
+        assertEquals("com.github.sadjz", appContext.getPackageName());
     }
 }
