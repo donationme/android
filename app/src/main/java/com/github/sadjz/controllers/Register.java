@@ -7,18 +7,20 @@ import android.widget.EditText;
 
 import com.github.sadjz.R;
 
-public class Login extends AppCompatActivity {
+public class Register extends AppCompatActivity {
 
     private EditText usernameTextfield;
     private EditText passwordTextfield;
+    private EditText confirmPasswordTextfield;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
         usernameTextfield = findViewById(R.id.usernameTextfield);
         passwordTextfield = findViewById(R.id.passwordTextfield);
+        confirmPasswordTextfield = findViewById(R.id.confirmPasswordTextfield);
         usernameTextfield.requestFocus();
 
     }
