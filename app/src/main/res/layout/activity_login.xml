@@ -7,8 +7,8 @@
     tools:context="com.github.sadjz.controllers.Login">
 
     <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
+        android:id="@+id/passwordTextfield"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="266dp"
         android:ems="10"
@@ -19,8 +19,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editText3"
-        android:layout_width="wrap_content"
+        android:id="@+id/usernameTextfield"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="18dp"
         android:ems="10"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="14dp"
         android:text="@string/app_username"
-        app:layout_constraintBottom_toTopOf="@+id/editText3"
+        app:layout_constraintBottom_toTopOf="@+id/usernameTextfield"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="9dp"
         android:text="@string/app_password"
-        app:layout_constraintBottom_toTopOf="@+id/editText2"
+        app:layout_constraintBottom_toTopOf="@+id/passwordTextfield"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
@@ -72,5 +72,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="364dp" />
+        app:layout_constraintGuide_end="388dp" />
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="215dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="45dp"
+        android:onClick="onLoginPressed"
+        android:text="@string/app_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/passwordTextfield" />
 </android.support.constraint.ConstraintLayout>

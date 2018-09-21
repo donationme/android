@@ -12,7 +12,7 @@ public class WelcomeScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.welcome_screen);
+        setContentView(R.layout.activity_welcome);
 
     }
 
@@ -22,5 +22,14 @@ public class WelcomeScreen extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+
+    public void onRegisterPressed(View view) {
+        Intent intent = new Intent(this, Register.class);
+
+        startActivity(intent);
+
+    }
+
 
 }
