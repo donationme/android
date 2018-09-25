@@ -8,6 +8,7 @@
     <string name="app_userName">Name</string>
     <string name="app_userEmail">Email</string>
     <string name="app_userType">Type</string>
+    <string name="app_backToWelcome">Back to Welcome</string>
     <string name="app_confirmPassword">Confirm Password</string>
     <string name="app_password">Password</string>
 </resources>
