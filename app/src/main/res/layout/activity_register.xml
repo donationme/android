@@ -22,12 +22,12 @@
             app2:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:id="@+id/confirmPasswordTextfield"
+            android:id="@+id/nameTextfield"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginBottom="160dp"
             android:ems="10"
-            android:inputType="textPassword"
+            android:inputType="text"
             app2:layout_constraintBottom_toBottomOf="parent"
             app2:layout_constraintEnd_toEndOf="parent"
             app2:layout_constraintStart_toStartOf="parent" />
@@ -112,8 +112,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="9dp"
             android:layout_marginTop="9dp"
-            android:text="@string/app_confirmPassword"
-            app2:layout_constraintBottom_toTopOf="@+id/confirmPasswordTextfield"
+            android:text="@string/app_userName"
+            app2:layout_constraintBottom_toTopOf="@+id/nameTextfield"
             app2:layout_constraintEnd_toEndOf="parent"
             app2:layout_constraintHorizontal_bias="0.5"
             app2:layout_constraintStart_toStartOf="parent"
