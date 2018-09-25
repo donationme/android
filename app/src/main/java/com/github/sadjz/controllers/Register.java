@@ -11,12 +11,16 @@ import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.R;
 import com.github.sadjz.managers.AccountManager;
 import com.github.sadjz.managers.RestManager;
+import com.github.sadjz.models.account.AccountCreationResponse;
 import com.github.sadjz.models.account.AccountModel;
 import com.github.sadjz.models.login.LoginModel;
 import com.github.sadjz.models.login.RestEndpoints;
 import com.github.sadjz.models.login.TokenModel;
 import com.github.sadjz.models.user.UserModel;
 import com.github.sadjz.models.user.UserType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Register extends AppCompatActivity {
 
@@ -50,9 +54,9 @@ public class Register extends AppCompatActivity {
                 new UserModel(nameTextfield.getText().toString(), usernameTextfield.getText().toString(), UserType.User));
 
 
-        RestCallback<String> accountCreationCallback = new RestCallback<String>() {
+        RestCallback<List<AccountCreationResponse>> accountCreationCallback = new RestCallback<List<AccountCreationResponse>>() {
             @Override
-            public void invoke(String success) {
+            public void invoke(List<AccountCreationResponse> accountCreationResponse) {
 
                 RestCallback<UserModel> loginCallback = new RestCallback<UserModel>() {
                     @Override
@@ -66,9 +70,9 @@ public class Register extends AppCompatActivity {
                     }
                 };
 
-
-
-                accountManager.loginAccount(loginModel,loginCallback);
+                if (accountCreationResponse.size() == 0){
+                    accountManager.loginAccount(loginModel,loginCallback);
+                }
 
             }
         };

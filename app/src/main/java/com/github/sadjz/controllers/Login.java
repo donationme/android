@@ -39,6 +39,13 @@ public class Login extends AppCompatActivity {
 
     }
 
+    public void onBackToWelcomePress(View view) {
+
+        Intent intent = new Intent(this, WelcomeScreen.class);
+
+        startActivity(intent);
+    }
+
 
     public void onLoginPressed(View view) {
 

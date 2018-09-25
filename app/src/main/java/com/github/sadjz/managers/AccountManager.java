@@ -1,14 +1,15 @@
 package com.github.sadjz.managers;
 
-import android.content.Intent;
 import android.util.Log;
-import com.github.sadjz.controllers.Home;
 import com.github.sadjz.datastructures.RestCallback;
+import com.github.sadjz.models.account.AccountCreationResponse;
 import com.github.sadjz.models.account.AccountModel;
 import com.github.sadjz.models.login.LoginModel;
 import com.github.sadjz.models.login.RestEndpoints;
 import com.github.sadjz.models.login.TokenModel;
 import com.github.sadjz.models.user.UserModel;
+
+import java.util.List;
 
 public class AccountManager {
 
@@ -45,12 +46,11 @@ public class AccountManager {
     }
 
 
-    public void createAccount(AccountModel accountModel, RestCallback<String> accountCallback) {
+    public void createAccount(AccountModel accountModel, RestCallback<List<AccountCreationResponse>> accountCallback) {
 
         final RestManager<AccountModel> loginRestManager = new RestManager<AccountModel>();
 
         try{
-
 
             loginRestManager.postRequest(RestEndpoints.Account, accountModel, accountCallback);
 

@@ -1,28 +1,22 @@
 package com.github.sadjz.managers;
 
 
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-
-
+import com.github.sadjz.consts.AppConst;
 import com.github.sadjz.models.login.RestEndpoints;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.util.Optional;
 
-import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
 
 
 public class RestManager<T>  {
 
-    static final String serverAddress = "http://10.0.1.17:5000/";
+    static final String serverAddress = String.format("http://%s:5000/", AppConst.serverAddress);
     private final Gson gson = new Gson();
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -107,4 +101,8 @@ public class RestManager<T>  {
         client.newCall(request).enqueue(callback);
 
     }
+
+
+
+
 }
