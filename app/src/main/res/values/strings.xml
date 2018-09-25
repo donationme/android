@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">SadJZ</string>
     <string name="app_login">Login</string>
+    <string name="app_logout">Logout</string>
     <string name="app_register">Register</string>
     <string name="app_username">Username</string>
+    <string name="app_user">User</string>
+    <string name="app_userName">Name</string>
+    <string name="app_userEmail">Email</string>
+    <string name="app_userType">Type</string>
     <string name="app_confirmPassword">Confirm Password</string>
     <string name="app_password">Password</string>
 </resources>

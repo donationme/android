@@ -1,0 +1,121 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.github.sadjz"
+    xmlns:app2="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.github.sadjz.controllers.Login">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/app_userName"
+            app2:layout_constraintBottom_toTopOf="@+id/nameLabel"
+            app2:layout_constraintEnd_toEndOf="parent"
+            app2:layout_constraintHorizontal_bias="0.5"
+            app2:layout_constraintStart_toStartOf="parent"
+            app2:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/app_username"
+            app2:layout_constraintBottom_toTopOf="@+id/emailLabel"
+            app2:layout_constraintEnd_toEndOf="parent"
+            app2:layout_constraintHorizontal_bias="0.501"
+            app2:layout_constraintStart_toStartOf="parent"
+            app2:layout_constraintTop_toBottomOf="@+id/typeLabel" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/app_userType"
+            app2:layout_constraintBottom_toTopOf="@+id/typeLabel"
+            app2:layout_constraintEnd_toEndOf="parent"
+            app2:layout_constraintHorizontal_bias="0.5"
+            app2:layout_constraintStart_toStartOf="parent"
+            app2:layout_constraintTop_toBottomOf="@+id/nameLabel" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="97dp"
+            android:layout_height="41dp"
+            android:layout_marginBottom="17dp"
+            android:layout_marginTop="17dp"
+            android:text="@string/app_login"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            app2:layout_constraintBottom_toTopOf="@+id/textView2"
+            app2:layout_constraintEnd_toEndOf="parent"
+            app2:layout_constraintHorizontal_bias="0.5"
+            app2:layout_constraintStart_toStartOf="parent"
+            app2:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app2:layout_constraintGuide_end="388dp" />
+
+        <Button
+            android:id="@+id/logoutBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:onClick="onLogoutPressed"
+            android:text="@string/app_logout"
+            app2:layout_constraintEnd_toEndOf="parent"
+            app2:layout_constraintStart_toStartOf="parent"
+            app2:layout_constraintTop_toBottomOf="@+id/emailLabel" />
+
+        <TextView
+            android:id="@+id/emailLabel"
+            android:layout_width="126dp"
+            android:layout_height="39dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:text="TextView"
+            android:textAlignment="center"
+            app2:layout_constraintBottom_toTopOf="@+id/logoutBtn"
+            app2:layout_constraintTop_toBottomOf="@+id/textView3"
+            tools:layout_editor_absoluteX="129dp" />
+
+        <TextView
+            android:id="@+id/typeLabel"
+            android:layout_width="126dp"
+            android:layout_height="39dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:text="TextView"
+            android:textAlignment="center"
+            app2:layout_constraintBottom_toTopOf="@+id/textView3"
+            app2:layout_constraintTop_toBottomOf="@+id/textView8"
+            tools:layout_editor_absoluteX="129dp" />
+
+        <TextView
+            android:id="@+id/nameLabel"
+            android:layout_width="126dp"
+            android:layout_height="39dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:text="TextView"
+            android:textAlignment="center"
+            app2:layout_constraintBottom_toTopOf="@+id/textView8"
+            app2:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:layout_editor_absoluteX="129dp" />
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>
