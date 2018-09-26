@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 
+import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -15,12 +16,21 @@ import okhttp3.RequestBody;
 
 
 public class RestManager<T>  {
-
+    private final OkHttpClient client = new OkHttpClient();
     static final String serverAddress = String.format("http://%s:5000/", AppConst.serverAddress);
     private final Gson gson = new Gson();
-
+    private Call currentCall;
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
+
+    /**
+     * Aborts request to server
+     */
+    public void abortRequest(){
+        if (this.currentCall != null){
+            this.currentCall.cancel();
+        }
+    }
 
     /**
      *
@@ -43,7 +53,6 @@ public class RestManager<T>  {
      */
     public void getRequest(String token, RestEndpoints endpoint, Callback callback) throws IOException {
 
-        OkHttpClient client = new OkHttpClient();
 
         Request.Builder requestBuilder = new Request.Builder()
                 .url(RestManager.serverAddress + endpoint.getEndpointPath())
@@ -56,8 +65,7 @@ public class RestManager<T>  {
 
         Request request = requestBuilder.build();
 
-
-        client.newCall(request).enqueue(callback);
+        this.setCurrentCall(request, callback);
 
     }
 
@@ -98,7 +106,19 @@ public class RestManager<T>  {
 
         Request request = requestBuilder.build();
 
-        client.newCall(request).enqueue(callback);
+        this.setCurrentCall(request, callback);
+
+
+    }
+
+    private void setCurrentCall(Request request, Callback callback){
+        this.currentCall = client.newCall(request);
+        this.currentCall.enqueue(callback);
+
+    }
+
+    private Call getCurrentCall(){
+       return this.currentCall;
 
     }
 

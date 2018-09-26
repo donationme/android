@@ -15,8 +15,11 @@ import java.util.List;
 public class AccountManager {
 
 
+    private final RestManager<LoginModel> loginRestManager = new RestManager<LoginModel>();
+    private final RestManager<AccountModel> accountRestManager = new RestManager<AccountModel>();
+
+
     public void loginAccount(LoginModel loginModel, final RestCallback<UserModel> loginCallback) {
-        final RestManager<LoginModel> loginRestManager = new RestManager<LoginModel>();
 
 
         try{
@@ -58,13 +61,24 @@ public class AccountManager {
     }
 
 
+    public void abortLogin(){
+        this.loginRestManager.abortRequest();
+    }
+
+    public void abortRegistration(){
+        this.accountRestManager.abortRequest();
+
+    }
+
+
+
+
     public void createAccount(AccountModel accountModel, RestCallback<List<AccountCreationResponse>> accountCallback) {
 
-        final RestManager<AccountModel> loginRestManager = new RestManager<AccountModel>();
 
         try{
 
-            loginRestManager.postRequest(RestEndpoints.Account, accountModel, accountCallback);
+            accountRestManager.postRequest(RestEndpoints.Account, accountModel, accountCallback);
 
         }catch (Exception e){
             accountCallback.invokeFailure();

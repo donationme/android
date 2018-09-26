@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -22,7 +23,7 @@ public class Login extends AppCompatActivity {
     private EditText usernameTextfield;
     private EditText passwordTextfield;
     private TextView errorText;
-
+    private Button loginBtn;
 
 
 
@@ -36,6 +37,7 @@ public class Login extends AppCompatActivity {
         passwordTextfield = findViewById(R.id.passwordTextfield);
         errorText = findViewById(R.id.errorText);
         usernameTextfield.requestFocus();
+        loginBtn = findViewById(R.id.loginBtn);
 
     }
 
@@ -47,9 +49,20 @@ public class Login extends AppCompatActivity {
     }
 
 
-    public void onLoginPressed(View view) {
-
+    public void onLoginPressed(View v) {
+        final AccountManager accountManager = new AccountManager();
+        loginBtn.setText("Abort");
         final Login currentActivity = this;
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                accountManager.abortLogin();
+            }
+        });
+
+
         LoginModel loginModel = new LoginModel(usernameTextfield.getText().toString(), passwordTextfield.getText().toString());
         RestCallback<UserModel> loginCallback = new RestCallback<UserModel>() {
             @Override
@@ -64,20 +77,23 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void invokeFailure(){
-                currentActivity.errorText.setText("Please enter correct credentials");
+                currentActivity.errorText.setText("Please enter the correct credentials");
+                loginBtn.setText("Login");
+                loginBtn.setOnClickListener(new View.OnClickListener() {
 
+                    public void onClick(View v) {
+
+                        currentActivity.onLoginPressed(v);
+                    }
+                });
             }
         };
 
-
-
-
-
-
-        AccountManager accountManager = new AccountManager();
         accountManager.loginAccount(loginModel,loginCallback);
 
+
     }
+
 
 
 
