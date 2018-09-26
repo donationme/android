@@ -22,6 +22,7 @@ public abstract class RestCallback<T> implements Callback {
     @Override
     public void onFailure(Call call, IOException e) {
         call.cancel();
+        this.invokeFailure();
     }
 
     @Override
@@ -32,17 +33,21 @@ public abstract class RestCallback<T> implements Callback {
             T model = gson.fromJson(res, (Class<T>)
                     ((ParameterizedType)getClass().getGenericSuperclass())
                             .getActualTypeArguments()[0]);
-            invoke(model);
+            invokeSuccess(model);
 
         }catch(Exception e){
             //In case there is a JSON array
             T model = gson.fromJson(res,new TypeToken<T>(){}.getType());
-            invoke(model);
+            invokeSuccess(model);
         }
 
     }
 
-    public abstract void invoke(T model);
+
+    public abstract void invokeFailure();
+
+
+    public abstract void invokeSuccess(T model);
 
 
 }

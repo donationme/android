@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.R;
@@ -56,11 +57,11 @@ public class Register extends AppCompatActivity {
 
         RestCallback<List<AccountCreationResponse>> accountCreationCallback = new RestCallback<List<AccountCreationResponse>>() {
             @Override
-            public void invoke(List<AccountCreationResponse> accountCreationResponse) {
+            public void invokeSuccess(List<AccountCreationResponse> accountCreationResponse) {
 
                 RestCallback<UserModel> loginCallback = new RestCallback<UserModel>() {
                     @Override
-                    public void invoke(UserModel model) {
+                    public void invokeSuccess(UserModel model) {
 
                         Home.userModel = model;
                         Intent intent = new Intent(currentActivity, Home.class);
@@ -68,12 +69,25 @@ public class Register extends AppCompatActivity {
                         startActivity(intent);
 
                     }
+
+                    @Override
+                    public void invokeFailure(){
+                        Toast.makeText(currentActivity, "Invalid Credentials!",
+                                Toast.LENGTH_LONG).show();
+                    }
+
                 };
 
                 if (accountCreationResponse.size() == 0){
                     accountManager.loginAccount(loginModel,loginCallback);
                 }
 
+            }
+
+            @Override
+            public void invokeFailure(){
+                Toast.makeText(currentActivity, "Account could not be created!",
+                        Toast.LENGTH_LONG).show();
             }
         };
 

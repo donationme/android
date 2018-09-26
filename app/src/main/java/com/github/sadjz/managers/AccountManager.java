@@ -1,6 +1,7 @@
 package com.github.sadjz.managers;
 
 import android.util.Log;
+
 import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.models.account.AccountCreationResponse;
 import com.github.sadjz.models.account.AccountModel;
@@ -21,18 +22,27 @@ public class AccountManager {
         try{
 
             RestCallback<TokenModel> tokenCallback = new RestCallback<TokenModel>() {
-                @Override
-                public void invoke(TokenModel tokenModel) {
+                    @Override
+                    public void invokeSuccess(TokenModel tokenModel) {
 
-                    try{
+                        try{
 
-                        loginRestManager.getRequest(tokenModel.token, RestEndpoints.Account, loginCallback);
+                            loginRestManager.getRequest(tokenModel.token, RestEndpoints.Account, loginCallback);
 
-                    }catch (Exception e){
-                        Log.d("User Fetch Error", e.getMessage());
+                        }catch (Exception e){
+                            Log.d("User Fetch Error", e.getMessage());
+                            loginCallback.invokeFailure();
+                        }
                     }
+                @Override
+                public void invokeFailure(){
+                    loginCallback.invokeFailure();
+
                 }
-            };
+
+
+
+                };
 
 
 
@@ -42,6 +52,8 @@ public class AccountManager {
 
         }catch (Exception e){
             Log.d("Token Fetch Error", e.getMessage());
+            loginCallback.invokeFailure();
+
         }
     }
 
@@ -55,7 +67,7 @@ public class AccountManager {
             loginRestManager.postRequest(RestEndpoints.Account, accountModel, accountCallback);
 
         }catch (Exception e){
-            Log.d("Account Creation Error", e.getMessage());
+            accountCallback.invokeFailure();
         }
 
     }
