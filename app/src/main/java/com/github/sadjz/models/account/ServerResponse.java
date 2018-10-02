@@ -3,7 +3,7 @@ package com.github.sadjz.models.account;
 import com.google.gson.annotations.SerializedName;
 
 
-public class AccountCreationResponse {
+public class ServerResponse {
 
     private String propertyName;
     private String errorMessage;

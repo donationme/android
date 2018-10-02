@@ -1,13 +1,11 @@
 package com.github.sadjz.datastructures;
 
+import com.github.sadjz.models.account.ServerResponse;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -28,18 +26,20 @@ public abstract class RestCallback<T> implements Callback {
     @Override
     public void onResponse(Call call, Response response) throws IOException {
         String res = response.body().string();
-
+        T model;
         try{
-            T model = gson.fromJson(res, (Class<T>)
+            model = gson.fromJson(res, (Class<T>)
                     ((ParameterizedType)getClass().getGenericSuperclass())
                             .getActualTypeArguments()[0]);
             invokeSuccess(model);
 
+
         }catch(Exception e){
+            ServerResponse[] serverResponse = gson.fromJson(res,ServerResponse[].class);
             //In case there is a JSON array
-            T model = gson.fromJson(res,new TypeToken<T>(){}.getType());
-            invokeSuccess(model);
+            invokeSuccess((T) serverResponse);
         }
+
 
     }
 

@@ -1,26 +1,25 @@
 package com.github.sadjz.controllers;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.Spinner;
 
 import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.R;
 import com.github.sadjz.managers.AccountManager;
 import com.github.sadjz.managers.RestManager;
-import com.github.sadjz.models.account.AccountCreationResponse;
+import com.github.sadjz.models.account.ServerResponse;
 import com.github.sadjz.models.account.AccountModel;
 import com.github.sadjz.models.login.LoginModel;
-import com.github.sadjz.models.login.RestEndpoints;
-import com.github.sadjz.models.login.TokenModel;
+
 import com.github.sadjz.models.user.UserModel;
 import com.github.sadjz.models.user.UserType;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Register extends AppCompatActivity {
@@ -28,6 +27,7 @@ public class Register extends AppCompatActivity {
     private EditText usernameTextfield;
     private EditText passwordTextfield;
     private EditText nameTextfield;
+    private Spinner typeSpinner;
 
 
     @Override
@@ -37,13 +37,19 @@ public class Register extends AppCompatActivity {
         usernameTextfield = findViewById(R.id.usernameTextfield);
         passwordTextfield = findViewById(R.id.passwordTextfield);
         nameTextfield = findViewById(R.id.nameTextfield);
+        typeSpinner = findViewById(R.id.typeSpinner);
         usernameTextfield.requestFocus();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, UserType.values());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeSpinner.setAdapter(adapter);
+        //Sets to user type
+        typeSpinner.setSelection(1);
 
     }
 
 
-    public void onLoginPressed(View view) {
-
+    public void onLoginPressed(final View view) {
 
 
         final RestManager<AccountModel> loginRestManager = new RestManager<AccountModel>();
@@ -52,16 +58,21 @@ public class Register extends AppCompatActivity {
         final Register currentActivity = this;
         final LoginModel loginModel = new LoginModel(usernameTextfield.getText().toString(),passwordTextfield.getText().toString());
         AccountModel accountModel = new AccountModel(loginModel,
-                new UserModel(nameTextfield.getText().toString(), usernameTextfield.getText().toString(), UserType.User));
+                new UserModel(nameTextfield.getText().toString(), usernameTextfield.getText().toString(), (UserType) typeSpinner.getSelectedItem()));
 
 
-        RestCallback<List<AccountCreationResponse>> accountCreationCallback = new RestCallback<List<AccountCreationResponse>>() {
+        RestCallback<ServerResponse[]> accountCreationCallback = new RestCallback<ServerResponse[]>() {
             @Override
-            public void invokeSuccess(List<AccountCreationResponse> accountCreationResponse) {
+            public void invokeSuccess(ServerResponse[] accountCreationResponse) {
+
+                if (accountCreationResponse.length >= 1){
+                    Snackbar.make(view, accountCreationResponse[0].getErrorMessage(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
 
                 RestCallback<UserModel> loginCallback = new RestCallback<UserModel>() {
                     @Override
                     public void invokeSuccess(UserModel model) {
+                        Snackbar.make(view, "Invalid Credentials!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
                         Home.userModel = model;
                         Intent intent = new Intent(currentActivity, Home.class);
@@ -72,13 +83,14 @@ public class Register extends AppCompatActivity {
 
                     @Override
                     public void invokeFailure(){
-                        Toast.makeText(currentActivity, "Invalid Credentials!",
-                                Toast.LENGTH_LONG).show();
+
+                        Snackbar.make(view, "Invalid Credentials!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
                     }
 
                 };
 
-                if (accountCreationResponse.size() == 0){
+                if (accountCreationResponse.length == 0){
                     accountManager.loginAccount(loginModel,loginCallback);
                 }
 
@@ -86,8 +98,9 @@ public class Register extends AppCompatActivity {
 
             @Override
             public void invokeFailure(){
-                Toast.makeText(currentActivity, "Account could not be created!",
-                        Toast.LENGTH_LONG).show();
+
+                Snackbar.make(view, "Invalid Credentials!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
             }
         };
 
@@ -95,6 +108,8 @@ public class Register extends AppCompatActivity {
         accountManager.createAccount(accountModel,accountCreationCallback);
 
     }
+
+
 
 
 
