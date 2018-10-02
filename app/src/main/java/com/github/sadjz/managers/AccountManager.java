@@ -3,7 +3,7 @@ package com.github.sadjz.managers;
 import android.util.Log;
 
 import com.github.sadjz.datastructures.RestCallback;
-import com.github.sadjz.models.account.AccountCreationResponse;
+import com.github.sadjz.models.account.ServerResponse;
 import com.github.sadjz.models.account.AccountModel;
 import com.github.sadjz.models.login.LoginModel;
 import com.github.sadjz.models.login.RestEndpoints;
@@ -73,7 +73,7 @@ public class AccountManager {
 
 
 
-    public void createAccount(AccountModel accountModel, RestCallback<List<AccountCreationResponse>> accountCallback) {
+    public void createAccount(AccountModel accountModel, RestCallback<ServerResponse[]> accountCallback) {
 
 
         try{

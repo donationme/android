@@ -1,6 +1,7 @@
 package com.github.sadjz.controllers;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +23,6 @@ public class Login extends AppCompatActivity {
 
     private EditText usernameTextfield;
     private EditText passwordTextfield;
-    private TextView errorText;
     private Button loginBtn;
 
 
@@ -35,7 +35,6 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         usernameTextfield = findViewById(R.id.usernameTextfield);
         passwordTextfield = findViewById(R.id.passwordTextfield);
-        errorText = findViewById(R.id.errorText);
         usernameTextfield.requestFocus();
         loginBtn = findViewById(R.id.loginBtn);
 
@@ -49,7 +48,7 @@ public class Login extends AppCompatActivity {
     }
 
 
-    public void onLoginPressed(View v) {
+    public void onLoginPressed(final View view) {
         final AccountManager accountManager = new AccountManager();
         loginBtn.setText("Abort");
         final Login currentActivity = this;
@@ -77,7 +76,8 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void invokeFailure(){
-                currentActivity.errorText.setText("Please enter the correct credentials");
+                Snackbar.make(view, "Please enter the correct credentials", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
                 loginBtn.setText("Login");
                 loginBtn.setOnClickListener(new View.OnClickListener() {
 
