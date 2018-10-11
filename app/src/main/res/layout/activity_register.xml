@@ -29,7 +29,7 @@
             android:layout_marginBottom="8dp"
             android:ems="10"
             android:inputType="text"
-            app2:layout_constraintBottom_toTopOf="@+id/loginBtn"
+            app2:layout_constraintBottom_toTopOf="@+id/registerBtn"
             app2:layout_constraintEnd_toEndOf="parent"
             app2:layout_constraintHorizontal_bias="0.5"
             app2:layout_constraintStart_toStartOf="parent"
@@ -95,7 +95,7 @@
             app2:layout_constraintGuide_end="388dp" />
 
         <Button
-            android:id="@+id/loginBtn"
+            android:id="@+id/registerBtn"
             android:layout_width="215dp"
             android:layout_height="50dp"
             android:layout_marginBottom="18dp"

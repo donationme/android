@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 
 import com.github.sadjz.datastructures.RestCallback;
@@ -36,7 +35,7 @@ public class Login extends AppCompatActivity {
         usernameTextfield = findViewById(R.id.usernameTextfield);
         passwordTextfield = findViewById(R.id.passwordTextfield);
         usernameTextfield.requestFocus();
-        loginBtn = findViewById(R.id.loginBtn);
+        loginBtn = findViewById(R.id.registerBtn);
 
     }
 
