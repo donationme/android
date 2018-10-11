@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -20,15 +21,13 @@ import com.github.sadjz.models.login.LoginModel;
 import com.github.sadjz.models.user.UserModel;
 import com.github.sadjz.models.user.UserType;
 
-import java.util.List;
-
 public class Register extends AppCompatActivity {
 
     private EditText usernameTextfield;
     private EditText passwordTextfield;
     private EditText nameTextfield;
     private Spinner typeSpinner;
-
+    private Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +37,7 @@ public class Register extends AppCompatActivity {
         passwordTextfield = findViewById(R.id.passwordTextfield);
         nameTextfield = findViewById(R.id.nameTextfield);
         typeSpinner = findViewById(R.id.typeSpinner);
+        registerButton = findViewById(R.id.registerBtn);
         usernameTextfield.requestFocus();
 
         ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, UserType.values());
@@ -60,6 +60,18 @@ public class Register extends AppCompatActivity {
         AccountModel accountModel = new AccountModel(loginModel,
                 new UserModel(nameTextfield.getText().toString(), usernameTextfield.getText().toString(), (UserType) typeSpinner.getSelectedItem()));
 
+        registerButton.setText("Abort");
+
+
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                accountManager.abortRegistration();
+            }
+        });
+
 
         RestCallback<ServerResponse[]> accountCreationCallback = new RestCallback<ServerResponse[]>() {
             @Override
@@ -72,7 +84,6 @@ public class Register extends AppCompatActivity {
                 RestCallback<UserModel> loginCallback = new RestCallback<UserModel>() {
                     @Override
                     public void invokeSuccess(UserModel model) {
-                        Snackbar.make(view, "Invalid Credentials!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
                         Home.userModel = model;
                         Intent intent = new Intent(currentActivity, Home.class);
@@ -98,8 +109,15 @@ public class Register extends AppCompatActivity {
 
             @Override
             public void invokeFailure(){
+                registerButton.setText("Login");
+                registerButton.setOnClickListener(new View.OnClickListener() {
 
-                Snackbar.make(view, "Invalid Credentials!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    public void onClick(View v) {
+
+                        currentActivity.onLoginPressed(v);
+                    }
+                });
+                Snackbar.make(view, "Could not create the account at this time", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
             }
         };
