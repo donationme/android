@@ -9,12 +9,14 @@ import android.widget.TextView;
 
 
 import com.github.sadjz.R;
+import com.github.sadjz.models.login.TokenModel;
 import com.github.sadjz.models.user.UserModel;
 
 public class Home extends AppCompatActivity {
 
     //TODO: Change this to a Singleton later on
     static UserModel userModel;
+    public static TokenModel tokenModel;
 
 
     private TextView typeLabel;

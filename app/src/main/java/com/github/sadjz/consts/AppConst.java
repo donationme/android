@@ -7,5 +7,6 @@ public class AppConst {
     /**
      * Important! Please change this to your own local ip address
      */
-    public static String serverAddress = "143.215.124.205";
+
+    public static String serverAddress = "143.215.88.201";
 }
