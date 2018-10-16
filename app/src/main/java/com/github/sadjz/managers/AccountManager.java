@@ -2,6 +2,7 @@ package com.github.sadjz.managers;
 
 import android.util.Log;
 
+import com.github.sadjz.controllers.Home;
 import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.models.account.ServerResponse;
 import com.github.sadjz.models.account.AccountModel;
@@ -15,8 +16,8 @@ import java.util.List;
 public class AccountManager {
 
 
-    private final RestManager<LoginModel> loginRestManager = new RestManager<LoginModel>();
-    private final RestManager<AccountModel> accountRestManager = new RestManager<AccountModel>();
+    private final RestManager loginRestManager = new RestManager();
+    private final RestManager accountRestManager = new RestManager();
 
 
     public void loginAccount(LoginModel loginModel, final RestCallback<UserModel> loginCallback) {
@@ -29,7 +30,7 @@ public class AccountManager {
                     public void invokeSuccess(TokenModel tokenModel) {
 
                         try{
-
+                            Home.tokenModel = tokenModel;
                             loginRestManager.getRequest(tokenModel.token, RestEndpoints.Account, loginCallback);
 
                         }catch (Exception e){
