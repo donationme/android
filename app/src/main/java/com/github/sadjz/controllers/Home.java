@@ -46,7 +46,7 @@ public class Home extends AppCompatActivity {
     }
 
     public void onMapDataPressed(View view) {
-        Intent intent = new Intent(this, MapData.class);
+        Intent intent = new Intent(this, MapDataList.class);
         startActivity(intent);
     }
 

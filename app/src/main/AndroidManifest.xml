@@ -30,7 +30,7 @@
 
         </activity>
 
-        <activity android:name=".controllers.MapData">
+        <activity android:name=".controllers.MapDataList">
 
         </activity>
     </application>

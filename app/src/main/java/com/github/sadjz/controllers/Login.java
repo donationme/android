@@ -69,44 +69,11 @@ public class Login extends AppCompatActivity {
             public void invokeSuccess(UserModel model) {
 
                 Home.userModel = model;
-                Intent intent = new Intent(currentActivity, Home.class);
+                Intent intent = new Intent(currentActivity, MapDataList.class);
 
                 startActivity(intent);
-                final LocationManager locationManager = new LocationManager();
 
 
-
-                //Put this in Location Controller
-
-                RestCallback<LocationModel> locationCallback = new RestCallback<LocationModel>() {
-                    @Override
-                    public void invokeSuccess(LocationModel model) {
-
-
-
-                        System.out.print(model);
-
-
-
-
-
-                    }
-
-                    @Override
-                    public void invokeFailure(){
-                        Snackbar.make(view, "Failed to get locations", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-
-                    }
-                };
-
-
-                locationManager.getLocations(Home.tokenModel, locationCallback);
-
-
-
-
-
-                ///
 
 
             }
