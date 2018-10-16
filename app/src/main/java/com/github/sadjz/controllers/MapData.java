@@ -19,8 +19,4 @@ public class MapData extends AppCompatActivity {
         setContentView(R.layout.activity_map_data);
     }
 
-    public void OnBackPressed(View view) {
-        Intent intent = new Intent(this, Home.class);
-        startActivity(intent);
-    }
 }
