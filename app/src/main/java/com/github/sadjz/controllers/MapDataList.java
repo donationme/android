@@ -1,8 +1,10 @@
 package com.github.sadjz.controllers;
 
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -85,7 +87,11 @@ public class MapDataList extends AppCompatActivity implements LocationAdapter.It
         
         LocationListObject locationListObject =  locations.get(position);
         System.out.print(locationListObject.getName());
-    }
 
+        Intent intent = new Intent(this, LocationDetails.class);
+        intent.putExtra("locationData", (Parcelable) locationListObject);
+
+        startActivity(intent);
+    }
 
 }

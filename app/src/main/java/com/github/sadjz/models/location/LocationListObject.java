@@ -1,8 +1,10 @@
 package com.github.sadjz.models.location;
 
 import com.google.gson.annotations.SerializedName;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class LocationListObject {
+public class LocationListObject implements Parcelable{
 
 
     private long key;
@@ -18,6 +20,51 @@ public class LocationListObject {
     private String phone;
     private String website;
     private Object id;
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public LocationListObject(Parcel in) {
+        key = in.readLong();
+        name = in.readString();
+        latitude = in.readDouble();
+        longitude = in.readDouble();
+        street = in.readString();
+        city = in.readString();
+        state = in.readString();
+        zip = in.readLong();
+        address = in.readString();
+        type = in.readString();
+        phone = in.readString();
+        website = in.readString();
+    }
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(key);
+        dest.writeString(name);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+        dest.writeString(street);
+        dest.writeString(city);
+        dest.writeString(state);
+        dest.writeLong(zip);
+        dest.writeString(address);
+        dest.writeString(type);
+        dest.writeString(phone);
+        dest.writeString(website);
+    }
+
+    public static final Parcelable.Creator<LocationListObject> CREATOR = new Parcelable.Creator<LocationListObject>() {
+        public LocationListObject createFromParcel(Parcel in) {
+            return new LocationListObject(in);
+        }
+
+        public LocationListObject[] newArray(int size) {
+            return new LocationListObject[size];
+        }
+    };
 
     @SerializedName("Key")
     public long getKey() { return key; }
