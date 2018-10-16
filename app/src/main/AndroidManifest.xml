@@ -33,6 +33,11 @@
         <activity android:name=".controllers.MapDataList">
 
         </activity>
+
+        <activity android:name=".controllers.LocationDetails">
+
+        </activity>
+
     </application>
 
 </manifest>

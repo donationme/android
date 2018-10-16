@@ -12,8 +12,7 @@ import android.widget.EditText;
 import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.R;
 import com.github.sadjz.managers.AccountManager;
-import com.github.sadjz.managers.LocationManager;
-import com.github.sadjz.models.location.LocationModel;
+
 import com.github.sadjz.models.login.LoginModel;
 
 import com.github.sadjz.models.user.UserModel;
