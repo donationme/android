@@ -15,7 +15,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 
 
-public class RestManager<T>  {
+public class RestManager  {
     private final OkHttpClient client = new OkHttpClient();
     static final String serverAddress = String.format("http://%s:5000/", AppConst.serverAddress);
     private final Gson gson = new Gson();
@@ -75,7 +75,7 @@ public class RestManager<T>  {
      * @param callback Callback to execute afterwards
      * @throws IOException
      */
-    public void postRequest(RestEndpoints endpoint, T model, Callback callback) throws IOException {
+    public <T> void postRequest(RestEndpoints endpoint, T model, Callback callback) throws IOException {
         this.postRequest(null, endpoint, model, callback);
 
     }
@@ -88,7 +88,7 @@ public class RestManager<T>  {
      * @param callback Callback to execute afterwards
      * @throws IOException
      */
-    public void postRequest(String token, RestEndpoints endpoint, T model, Callback callback) throws IOException {
+    public <T> void postRequest(String token, RestEndpoints endpoint, T model, Callback callback) throws IOException {
 
         OkHttpClient client = new OkHttpClient();
         String json = gson.toJson(model);

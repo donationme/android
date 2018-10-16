@@ -29,6 +29,10 @@
         <activity android:name=".controllers.Home">
 
         </activity>
+
+        <activity android:name=".controllers.MapDataList">
+
+        </activity>
     </application>
 
 </manifest>

@@ -52,7 +52,7 @@ public class Register extends AppCompatActivity {
     public void onLoginPressed(final View view) {
 
 
-        final RestManager<AccountModel> loginRestManager = new RestManager<AccountModel>();
+        final RestManager loginRestManager = new RestManager();
         final AccountManager accountManager = new AccountManager();
 
         final Register currentActivity = this;
