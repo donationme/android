@@ -50,4 +50,6 @@ public class Home extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public static UserModel getUserModel() {return userModel;}
+
 }
