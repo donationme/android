@@ -68,7 +68,7 @@ public class Login extends AppCompatActivity {
             public void invokeSuccess(UserModel model) {
 
                 Home.userModel = model;
-                Intent intent = new Intent(currentActivity, MapDataList.class);
+                Intent intent = new Intent(currentActivity, Home.class);
 
                 startActivity(intent);
 
