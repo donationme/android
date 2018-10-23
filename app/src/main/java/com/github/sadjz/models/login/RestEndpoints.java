@@ -3,7 +3,8 @@ package com.github.sadjz.models.login;
 public enum RestEndpoints {
     Account("api/account"),
     Token("api/token"),
-    Location("api/location");
+    Location("api/location"),
+    Item("api/item");
 
     private String endpointPath;
 
