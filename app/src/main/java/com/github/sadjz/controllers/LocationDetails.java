@@ -16,7 +16,7 @@ import com.github.sadjz.models.donationItem.DonationItemModel;
 import com.github.sadjz.models.location.LocationListObject;
 import android.support.v7.widget.RecyclerView;
 import com.github.sadjz.R;
-import com.github.sadjz.models.location.LocationModel;
+import com.github.sadjz.models.user.UserType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,6 @@ public class LocationDetails extends AppCompatActivity implements ItemAdapter.It
     private List<DonationItemListObject> items;
 
     private Button addItemButton;
-
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,13 +91,15 @@ public class LocationDetails extends AppCompatActivity implements ItemAdapter.It
 
         itemManager.getItems(Home.tokenModel, itemCallback);
 
-        addItemButton = findViewById(R.id.addItemButton);
-        final Intent newItemIntent = new Intent(this, NewItem.class);
-        addItemButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(newItemIntent);
-            }
-        });
+        if (Home.getUserModel().getType().equals(UserType.LocationEmployee)) {
+            addItemButton = findViewById(R.id.addItemButton);
+            final Intent newItemIntent = new Intent(this, NewItem.class);
+            addItemButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    startActivity(newItemIntent);
+                }
+            });
+        }
     }
 
     @Override
