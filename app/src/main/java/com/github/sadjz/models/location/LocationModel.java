@@ -8,12 +8,12 @@ import java.util.List;
 public class LocationModel {
 
 
-    private List<LocationListObject> locations;
+    private List<LocationCollectionObject> locations;
 
     @SerializedName("Locations")
-    public List<LocationListObject> getLocations() { return locations; }
+    public List<LocationCollectionObject> getLocations() { return locations; }
     @SerializedName("Locations")
-    public void setLocations(List<LocationListObject> value) { this.locations = value; }
+    public void setLocations(List<LocationCollectionObject> value) { this.locations = value; }
 
 
 }

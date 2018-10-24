@@ -133,18 +133,11 @@
                 android:inputType="textPersonName" />
 
             <Button
-                android:id="@+id/updateItem"
+                android:id="@+id/addItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="onEditItemPress"
-                android:text="UPDATE ITEM" />
-
-            <Button
-                android:id="@+id/removeItemButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onRemoveItemPress"
-                android:text="REMOVE ITEM" />
+                android:onClick="onAddItemPress"
+                android:text="ADD ITEM" />
 
         </LinearLayout>
     </ScrollView>

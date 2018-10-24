@@ -30,11 +30,19 @@
 
         </activity>
 
-        <activity android:name=".controllers.MapDataList">
+        <activity android:name=".controllers.LocationList">
 
         </activity>
 
         <activity android:name=".controllers.LocationDetails">
+
+        </activity>
+
+        <activity android:name=".controllers.ItemDetails">
+
+        </activity>
+
+        <activity android:name=".controllers.ItemAdd">
 
         </activity>
 

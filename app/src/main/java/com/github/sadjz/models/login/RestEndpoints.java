@@ -3,8 +3,10 @@ package com.github.sadjz.models.login;
 public enum RestEndpoints {
     Account("api/account"),
     Token("api/token"),
-    Location("api/location"),
-    Item("api/item");
+    Location("api/location/atlanta"),
+    AddDonationItem("api/donationitem/add/atlanta"),
+    EditDonationItem("api/donationitem/edit/atlanta"),
+    RemoveDonationItem("api/donationitem/remove/atlanta");
 
     private String endpointPath;
 

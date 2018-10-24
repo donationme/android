@@ -35,7 +35,7 @@ public abstract class RestCallback<T> implements Callback {
 
 
         }catch(Exception e){
-            ServerResponse[] serverResponse = gson.fromJson(res,ServerResponse[].class);
+                ServerResponse[] serverResponse = gson.fromJson(res,ServerResponse[].class);
             //In case there is a JSON array
             invokeSuccess((T) serverResponse);
         }

@@ -7,12 +7,36 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nameLabel"
+                android:layout_width="356dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/type"
+                android:textAlignment="viewStart"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/typeTextField"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTextField" />
 
             <TextView
                 android:id="@+id/typeTextField"
@@ -24,88 +48,62 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/typeLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/nameLabel" />
 
             <TextView
-                android:id="@+id/typeLabel"
-                android:layout_width="356dp"
-                android:layout_height="30dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/type"
-                android:textAlignment="viewStart"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/typeTextField"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/websiteTextField" />
-
-            <TextView
-                android:id="@+id/websiteTextField"
-                android:layout_width="356dp"
-                android:layout_height="30dp"
-                android:layout_marginBottom="10dp"
-                android:text="TextView"
-                app:layout_constraintBottom_toTopOf="@+id/typeLabel"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/websiteLabel" />
-
-            <TextView
-                android:id="@+id/websiteLabel"
+                android:id="@+id/descriptionLabel"
                 android:layout_width="356dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
                 android:text="@string/website"
                 android:textAlignment="viewStart"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/websiteTextField"
+                app:layout_constraintBottom_toTopOf="@+id/descriptionTextField"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/phoneTextField" />
+                app:layout_constraintTop_toBottomOf="@+id/quantityTextField" />
 
             <TextView
-                android:id="@+id/phoneTextField"
+                android:id="@+id/descriptionTextField"
                 android:layout_width="356dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
                 android:text="TextView"
-                app:layout_constraintBottom_toTopOf="@+id/websiteLabel"
+                app:layout_constraintBottom_toTopOf="@+id/nameLabel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/phoneLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/descriptionLabel" />
 
             <TextView
-                android:id="@+id/phoneLabel"
+                android:id="@+id/quantityLabel"
                 android:layout_width="356dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
                 android:text="@string/phone"
                 android:textAlignment="viewStart"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/phoneTextField"
+                app:layout_constraintBottom_toTopOf="@+id/quantityTextField"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/addressTextField" />
 
             <TextView
-                android:id="@+id/addressTextField"
+                android:id="@+id/quantityTextField"
                 android:layout_width="356dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
                 android:text="TextView"
-                app:layout_constraintBottom_toTopOf="@+id/phoneLabel"
+                app:layout_constraintBottom_toTopOf="@+id/descriptionLabel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addressLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/quantityLabel" />
 
             <TextView
-                android:id="@+id/addressLabel"
+                android:id="@+id/categoryLabel"
                 android:layout_width="356dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
@@ -119,16 +117,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/nameTextField" />
 
             <TextView
-                android:id="@+id/nameTextField"
+                android:id="@+id/addressTextField"
                 android:layout_width="356dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
                 android:text="TextView"
-                app:layout_constraintBottom_toTopOf="@+id/addressLabel"
+                app:layout_constraintBottom_toTopOf="@+id/quantityLabel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nameLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/categoryLabel" />
 
             <TextView
                 android:id="@+id/nameLabel"
@@ -143,6 +141,18 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/nameTextField"
+                android:layout_width="356dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="10dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/categoryLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nameLabel" />
 
             <TextView
                 android:id="@+id/itemsLabel"
@@ -161,6 +171,7 @@
                 android:id="@+id/addItemButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="onAddItemPress"
                 android:text="ADD ITEM" />
 
         </LinearLayout>

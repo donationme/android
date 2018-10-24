@@ -1,10 +1,13 @@
 package com.github.sadjz.models.location;
 
+import com.github.sadjz.models.donationItem.DonationItemModel;
 import com.google.gson.annotations.SerializedName;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class LocationListObject implements Parcelable{
+import java.util.List;
+
+public class LocationCollectionObject implements Parcelable{
 
 
     private long key;
@@ -19,14 +22,15 @@ public class LocationListObject implements Parcelable{
     private String type;
     private String phone;
     private String website;
-    private Object id;
+    private String id;
+    private List<DonationItemModel> items;
 
     @Override
     public int describeContents() {
         return 0;
     }
 
-    public LocationListObject(Parcel in) {
+    public LocationCollectionObject(Parcel in) {
         key = in.readLong();
         name = in.readString();
         latitude = in.readDouble();
@@ -39,6 +43,9 @@ public class LocationListObject implements Parcelable{
         type = in.readString();
         phone = in.readString();
         website = in.readString();
+        items = in.readArrayList(DonationItemModel.class.getClassLoader());
+        id = in.readString();
+
     }
 
     public void writeToParcel(Parcel dest, int flags) {
@@ -54,15 +61,18 @@ public class LocationListObject implements Parcelable{
         dest.writeString(type);
         dest.writeString(phone);
         dest.writeString(website);
+        dest.writeList(items);
+        dest.writeString(id);
+
     }
 
-    public static final Parcelable.Creator<LocationListObject> CREATOR = new Parcelable.Creator<LocationListObject>() {
-        public LocationListObject createFromParcel(Parcel in) {
-            return new LocationListObject(in);
+    public static final Parcelable.Creator<LocationCollectionObject> CREATOR = new Parcelable.Creator<LocationCollectionObject>() {
+        public LocationCollectionObject createFromParcel(Parcel in) {
+            return new LocationCollectionObject(in);
         }
 
-        public LocationListObject[] newArray(int size) {
-            return new LocationListObject[size];
+        public LocationCollectionObject[] newArray(int size) {
+            return new LocationCollectionObject[size];
         }
     };
 
@@ -126,8 +136,14 @@ public class LocationListObject implements Parcelable{
     @SerializedName("Website")
     public void setWebsite(String value) { this.website = value; }
 
-    @SerializedName("id")
-    public Object getID() { return id; }
-    @SerializedName("id")
-    public void setID(Object value) { this.id = value; }
+
+    @SerializedName("Id")
+    public String getId() { return id; }
+    @SerializedName("Id")
+    public void getId(String value) { this.id = value; }
+
+    @SerializedName("Items")
+    public List<DonationItemModel> getItems() { return items ; }
+    @SerializedName("Items")
+    public void setItems( List<DonationItemModel> value) { this.items = value; }
 }

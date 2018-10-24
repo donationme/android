@@ -16,5 +16,9 @@
     <string name="phone">Phone</string>
     <string name="website">Website</string>
     <string name="type">Type</string>
+    <string name="category">Category</string>
+    <string name="description">Description</string>
+    <string name="time">Time</string>
+    <string name="quantity">Quantity</string>
 
 </resources>

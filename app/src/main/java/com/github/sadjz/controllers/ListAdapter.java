@@ -9,22 +9,27 @@ import android.widget.TextView;
 
 import com.github.sadjz.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder> {
+public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
-    private List<String> mData;
+    private List<String> mData = new ArrayList<>();
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
+
     // data is passed into the constructor
-    public LocationAdapter(Context context) {
+    public ListAdapter(Context context) {
+
         this.mInflater = LayoutInflater.from(context);
     }
 
-    public void setData( List<String> data){
-        this.mData = data;
+    public void updateList( List<String> data){
+        mData.clear();
+        mData.addAll(data);
+        this.notifyDataSetChanged();
 
     }
 
@@ -45,7 +50,8 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     // total number of rows
     @Override
     public int getItemCount() {
-        return mData.size();
+        return mData == null ? 0 : mData.size();
+
     }
 
 

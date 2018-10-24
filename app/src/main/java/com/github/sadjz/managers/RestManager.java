@@ -38,9 +38,9 @@ public class RestManager  {
      * @param callback Callback to execute afterwards
      * @throws IOException
      */
-    public void getRequest(RestEndpoints endpoint, Callback callback) throws IOException {
+    public void getRequest(RestEndpoints endpoint, Callback callback, String args) throws IOException {
 
-        this.getRequest(null, endpoint, callback);
+        this.getRequest(null, endpoint, callback, args);
     }
 
 
@@ -51,11 +51,11 @@ public class RestManager  {
      * @param callback Callback to execute afterwards
      * @throws IOException
      */
-    public void getRequest(String token, RestEndpoints endpoint, Callback callback) throws IOException {
+    public void getRequest(String token, RestEndpoints endpoint, Callback callback, String args) throws IOException {
 
 
         Request.Builder requestBuilder = new Request.Builder()
-                .url(RestManager.serverAddress + endpoint.getEndpointPath())
+                .url(RestManager.serverAddress + endpoint.getEndpointPath() + args)
                 .get();
 
         if (token != null){
@@ -75,8 +75,8 @@ public class RestManager  {
      * @param callback Callback to execute afterwards
      * @throws IOException
      */
-    public <T> void postRequest(RestEndpoints endpoint, T model, Callback callback) throws IOException {
-        this.postRequest(null, endpoint, model, callback);
+    public <T> void postRequest(RestEndpoints endpoint, T model, Callback callback, String args) throws IOException {
+        this.postRequest(null, endpoint, model, callback, args);
 
     }
 
@@ -88,14 +88,14 @@ public class RestManager  {
      * @param callback Callback to execute afterwards
      * @throws IOException
      */
-    public <T> void postRequest(String token, RestEndpoints endpoint, T model, Callback callback) throws IOException {
+    public <T> void postRequest(String token, RestEndpoints endpoint, T model, Callback callback, String args) throws IOException {
 
         OkHttpClient client = new OkHttpClient();
         String json = gson.toJson(model);
         RequestBody body = RequestBody.create(JSON, json);
 
         Request.Builder requestBuilder = new Request.Builder()
-                .url(RestManager.serverAddress + endpoint.getEndpointPath())
+                .url(RestManager.serverAddress + endpoint.getEndpointPath() + args)
                 .post(body);
 
 

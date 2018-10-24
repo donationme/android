@@ -29,7 +29,7 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        typeLabel = findViewById(R.id.typeLabel);
+        typeLabel = findViewById(R.id.nameLabel);
         emailLabel = findViewById(R.id.emailLabel);
         nameLabel = findViewById(R.id.nameLabel);
         mapDataBtn = findViewById(R.id.MapDataBtn);
@@ -46,7 +46,7 @@ public class Home extends AppCompatActivity {
     }
 
     public void onMapDataPressed(View view) {
-        Intent intent = new Intent(this, MapDataList.class);
+        Intent intent = new Intent(this, LocationList.class);
         startActivity(intent);
     }
 

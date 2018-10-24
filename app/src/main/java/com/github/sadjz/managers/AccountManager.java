@@ -31,7 +31,7 @@ public class AccountManager {
 
                         try{
                             Home.tokenModel = tokenModel;
-                            loginRestManager.getRequest(tokenModel.token, RestEndpoints.Account, loginCallback);
+                            loginRestManager.getRequest(tokenModel.token, RestEndpoints.Account, loginCallback,"");
 
                         }catch (Exception e){
                             Log.d("User Fetch Error", e.getMessage());
@@ -51,7 +51,7 @@ public class AccountManager {
 
 
 
-            loginRestManager.postRequest(RestEndpoints.Token, loginModel, tokenCallback);
+            loginRestManager.postRequest(RestEndpoints.Token, loginModel, tokenCallback, "");
 
 
         }catch (Exception e){
@@ -79,7 +79,7 @@ public class AccountManager {
 
         try{
 
-            accountRestManager.postRequest(RestEndpoints.Account, accountModel, accountCallback);
+            accountRestManager.postRequest(RestEndpoints.Account, accountModel, accountCallback, "");
 
         }catch (Exception e){
             accountCallback.invokeFailure();
