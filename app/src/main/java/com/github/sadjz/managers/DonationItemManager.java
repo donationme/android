@@ -4,7 +4,6 @@ package com.github.sadjz.managers;
 import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.models.account.ServerResponse;
 import com.github.sadjz.models.donationItem.DonationItemModel;
-import com.github.sadjz.models.location.LocationModel;
 import com.github.sadjz.models.login.RestEndpoints;
 import com.github.sadjz.models.login.TokenModel;
 

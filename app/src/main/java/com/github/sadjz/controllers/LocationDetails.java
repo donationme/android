@@ -10,12 +10,12 @@ import android.widget.TextView;
 
 import com.github.sadjz.models.donationItem.DonationItemModel;
 import com.github.sadjz.models.donationItem.ItemCategory;
-import com.github.sadjz.models.location.LocationCollectionObject;
+import com.github.sadjz.models.location.LocationModel;
 import android.support.v7.widget.RecyclerView;
 import com.github.sadjz.R;
+import com.github.sadjz.models.user.UserType;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -30,7 +30,7 @@ public class LocationDetails extends AppCompatActivity implements ListAdapter.It
     private RecyclerView itemRecyclerView;
     private ListAdapter itemAdapter;
     private List<DonationItemModel> items;
-    LocationCollectionObject location;
+    LocationModel location;
     private Button addItemButton;
 
 
@@ -45,7 +45,7 @@ public class LocationDetails extends AppCompatActivity implements ListAdapter.It
         typeTextField = findViewById(R.id.typeTextField);
         phoneTextField = findViewById(R.id.quantityTextField);
         websiteTextField = findViewById(R.id.descriptionTextField);
-
+        addItemButton = findViewById(R.id.addItemButton);
         location = getIntent().getParcelableExtra("locationData");
 
         nameTextField.setText(location.getName());
@@ -53,7 +53,14 @@ public class LocationDetails extends AppCompatActivity implements ListAdapter.It
         typeTextField.setText(location.getType());
         phoneTextField.setText(location.getPhone());
         websiteTextField.setText(location.getWebsite());
-//
+
+
+
+
+        if (!(Home.userModel.getType() == UserType.Admin || Home.userModel.getType() == UserType.LocationEmployee)){
+            addItemButton.setVisibility(View.GONE);
+        }
+
 
         itemRecyclerView = findViewById(R.id.items);
         itemRecyclerView.setLayoutManager(new LinearLayoutManager(this));

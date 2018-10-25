@@ -1,10 +1,12 @@
 package com.github.sadjz.controllers;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ import com.github.sadjz.models.donationItem.DonationItemModel;
 import com.github.sadjz.R;
 import com.github.sadjz.models.donationItem.ItemCategory;
 import com.github.sadjz.models.user.UserModel;
+import com.github.sadjz.models.user.UserType;
 
 public class ItemDetails extends AppCompatActivity {
 
@@ -25,6 +28,9 @@ public class ItemDetails extends AppCompatActivity {
     private EditText nameText;
     private EditText quantityText;
     private EditText categoryText;
+    private Button editButton;
+    private Button removeButton;
+
     DonationItemModel item;
     final DonationItemManager donationItemManager = new DonationItemManager();
 
@@ -37,6 +43,19 @@ public class ItemDetails extends AppCompatActivity {
         nameText = findViewById(R.id.nameText);
         quantityText = findViewById(R.id.quantityText);
         categoryText = findViewById(R.id.categoryText);
+        editButton = findViewById(R.id.editButton);
+        removeButton = findViewById(R.id.removeButton);
+
+
+        if (!(Home.userModel.getType() == UserType.Admin || Home.userModel.getType() == UserType.LocationEmployee)){
+            descriptionText.setEnabled(false);
+            nameText.setEnabled(false);
+            quantityText.setEnabled(false);
+            categoryText.setEnabled(false);
+            editButton.setVisibility(View.GONE);
+            removeButton.setVisibility(View.GONE);
+        }
+
 
         item = getIntent().getParcelableExtra("itemData");
 
@@ -69,6 +88,8 @@ public class ItemDetails extends AppCompatActivity {
 
                 Intent intent = new Intent(currentActivity, Home.class);
                 startActivity(intent);
+//                currentActivity.finish();
+
             }
 
             @Override

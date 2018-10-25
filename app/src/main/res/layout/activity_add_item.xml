@@ -86,32 +86,6 @@
                 android:inputType="textPersonName" />
 
             <TextView
-                android:id="@+id/timeLabel"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/time"
-                android:textAlignment="viewStart"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/addressTextField"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nameTextField" />
-
-            <TextView
-                android:id="@+id/timeText"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginBottom="10dp"
-                android:text="TextView"
-                app:layout_constraintBottom_toTopOf="@+id/descriptionLabel"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/quantityLabel" />
-
-            <TextView
                 android:id="@+id/categoryLabel"
                 android:layout_width="356dp"
                 android:layout_height="30dp"

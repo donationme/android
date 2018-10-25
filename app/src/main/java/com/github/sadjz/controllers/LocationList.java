@@ -13,8 +13,8 @@ import android.view.View;
 import com.github.sadjz.R;
 import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.managers.LocationManager;
-import com.github.sadjz.models.location.LocationCollectionObject;
 import com.github.sadjz.models.location.LocationModel;
+import com.github.sadjz.models.location.RegionModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class LocationList extends AppCompatActivity implements ListAdapter.ItemC
 
     private RecyclerView locRecyclerView;
     private ListAdapter locAdapter;
-    private LocationModel locationModel;
+    private RegionModel locationModel;
     LocationList currentActivity;
 
 
@@ -50,9 +50,9 @@ public class LocationList extends AppCompatActivity implements ListAdapter.ItemC
         final LocationManager locationManager = new LocationManager();
 
 
-        RestCallback<LocationModel> locationCallback = new RestCallback<LocationModel>() {
+        RestCallback<RegionModel> locationCallback = new RestCallback<RegionModel>() {
             @Override
-            public void invokeSuccess(LocationModel model) {
+            public void invokeSuccess(RegionModel model) {
 
                 try {
 
@@ -62,9 +62,9 @@ public class LocationList extends AppCompatActivity implements ListAdapter.ItemC
                     new Handler(Looper.getMainLooper()).post(new Runnable(){
                         @Override
                         public void run() {
-                            List<LocationCollectionObject> locations = locationModel.getLocations();
+                            List<LocationModel> locations = locationModel.getLocations();
                             ArrayList<String> locationNames = new ArrayList<String>();
-                            for (LocationCollectionObject location : locations) {
+                            for (LocationModel location : locations) {
                                 locationNames.add(location.getName());
                             }
 
@@ -100,7 +100,7 @@ public class LocationList extends AppCompatActivity implements ListAdapter.ItemC
 
 
 
-        LocationCollectionObject locationListObject =  locationModel.getLocations().get(position);
+        LocationModel locationListObject =  locationModel.getLocations().get(position);
 
         Intent intent = new Intent(currentActivity, LocationDetails.class);
         intent.putExtra("locationData", (Parcelable) locationListObject);
