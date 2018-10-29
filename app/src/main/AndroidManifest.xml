@@ -25,6 +25,8 @@
         <activity android:name=".controllers.LocationDetailsActivity"></activity>
         <activity android:name=".controllers.ItemDetailsActivity"></activity>
         <activity android:name=".controllers.ItemAddActivity"></activity>
+        <activity android:name=".controllers.SearchActivity"></activity>
+
     </application>
 
 </manifest>

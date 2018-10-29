@@ -38,7 +38,7 @@ public class LocationDetailsActivity extends AppCompatActivity implements ListAd
 
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loc_detail);
+        setContentView(R.layout.activity_location_detail);
 
         nameTextField = findViewById(R.id.nameTextField);
         addressTextField = findViewById(R.id.addressTextField);

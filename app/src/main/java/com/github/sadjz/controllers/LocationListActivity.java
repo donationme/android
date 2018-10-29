@@ -23,7 +23,7 @@ public class LocationListActivity extends AppCompatActivity implements ListAdapt
 
     private RecyclerView locRecyclerView;
     private ListAdapter locAdapter;
-    private RegionModel locationModel;
+    private RegionModel region;
     LocationListActivity currentActivity;
 
 
@@ -57,12 +57,12 @@ public class LocationListActivity extends AppCompatActivity implements ListAdapt
                 try {
 
 
-                    locationModel = model;
+                    region = model;
 
                     new Handler(Looper.getMainLooper()).post(new Runnable(){
                         @Override
                         public void run() {
-                            List<LocationModel> locations = locationModel.getLocations();
+                            List<LocationModel> locations = region.getLocations();
                             ArrayList<String> locationNames = new ArrayList<String>();
                             for (LocationModel location : locations) {
                                 locationNames.add(location.getName());
@@ -100,7 +100,7 @@ public class LocationListActivity extends AppCompatActivity implements ListAdapt
 
 
 
-        LocationModel locationListObject =  locationModel.getLocations().get(position);
+        LocationModel locationListObject =  region.getLocations().get(position);
 
         Intent intent = new Intent(currentActivity, LocationDetailsActivity.class);
         intent.putExtra("locationData", (Parcelable) locationListObject);

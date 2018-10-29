@@ -50,6 +50,11 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onSearchPressed(View view) {
+        Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
+    }
+
     public static UserModel getUserModel() {return userModel;}
 
 }

@@ -20,6 +20,7 @@
     <string name="description">Description</string>
     <string name="time">Time</string>
     <string name="quantity">Quantity</string>
+    <string name="search">Search</string>
     <string name="title_activity_search">SearchActivity</string>
 
 </resources>

@@ -6,8 +6,9 @@ public enum RestEndpoints {
     Location("api/location/atlanta"),
     AddDonationItem("api/donationitem/add/atlanta"),
     EditDonationItem("api/donationitem/edit/atlanta"),
-    RemoveDonationItem("api/donationitem/remove/atlanta");
-
+    RemoveDonationItem("api/donationitem/remove/atlanta"),
+    SearchName("api/search/name/atlanta"),
+    SearchCategory("api/search/category/atlanta");
     private String endpointPath;
 
     RestEndpoints(String endpointPath) {
