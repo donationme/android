@@ -1,6 +1,5 @@
 package com.github.sadjz.controllers;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,17 +10,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.github.sadjz.datastructures.RestCallback;
-import com.github.sadjz.managers.AccountManager;
 import com.github.sadjz.managers.DonationItemManager;
 import com.github.sadjz.models.account.ServerResponse;
 import com.github.sadjz.models.donationItem.DonationItemModel;
 
 import com.github.sadjz.R;
 import com.github.sadjz.models.donationItem.ItemCategory;
-import com.github.sadjz.models.user.UserModel;
 import com.github.sadjz.models.user.UserType;
 
-public class ItemDetails extends AppCompatActivity {
+public class ItemDetailsActivity extends AppCompatActivity {
 
     private TextView timeText;
     private EditText descriptionText;
@@ -47,7 +44,7 @@ public class ItemDetails extends AppCompatActivity {
         removeButton = findViewById(R.id.removeButton);
 
 
-        if (!(Home.userModel.getType() == UserType.Admin || Home.userModel.getType() == UserType.LocationEmployee)){
+        if (!(HomeActivity.userModel.getType() == UserType.Admin || HomeActivity.userModel.getType() == UserType.LocationEmployee)){
             descriptionText.setEnabled(false);
             nameText.setEnabled(false);
             quantityText.setEnabled(false);
@@ -73,7 +70,7 @@ public class ItemDetails extends AppCompatActivity {
     public void onEditItemPress(final View view) {
 
 
-        final ItemDetails currentActivity = this;
+        final ItemDetailsActivity currentActivity = this;
 
         DonationItemModel donationItemModel = new DonationItemModel(nameText.getText().toString(),
                                                                     descriptionText.getText().toString(),
@@ -86,7 +83,7 @@ public class ItemDetails extends AppCompatActivity {
             @Override
             public void invokeSuccess(ServerResponse[] model) {
 
-                Intent intent = new Intent(currentActivity, Home.class);
+                Intent intent = new Intent(currentActivity, HomeActivity.class);
                 startActivity(intent);
 //                currentActivity.finish();
 
@@ -99,7 +96,7 @@ public class ItemDetails extends AppCompatActivity {
         };
 
 
-        donationItemManager.editDonationItem(Home.tokenModel, donationItemModel, donationItemCallback);
+        donationItemManager.editDonationItem(HomeActivity.tokenModel, donationItemModel, donationItemCallback);
 
 
 
@@ -109,7 +106,7 @@ public class ItemDetails extends AppCompatActivity {
     public void onRemoveItemPress(final View view) {
 
 
-        final ItemDetails currentActivity = this;
+        final ItemDetailsActivity currentActivity = this;
 
 
 
@@ -117,9 +114,13 @@ public class ItemDetails extends AppCompatActivity {
         RestCallback<ServerResponse[]> donationItemCallback = new RestCallback<ServerResponse[]>() {
             @Override
             public void invokeSuccess(ServerResponse[] model) {
+                if (model.length == 0) {
+                    Intent intent = new Intent(currentActivity, HomeActivity.class);
+                    startActivity(intent);
+                }else{
+                    Snackbar.make(view, model[0].getErrorMessage(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
-                Intent intent = new Intent(currentActivity, Home.class);
-                startActivity(intent);
+                }
             }
 
             @Override
@@ -129,7 +130,7 @@ public class ItemDetails extends AppCompatActivity {
         };
 
 
-        donationItemManager.removeDonationItem(Home.tokenModel, item, donationItemCallback);
+        donationItemManager.removeDonationItem(HomeActivity.tokenModel, item, donationItemCallback);
 
 
 

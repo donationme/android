@@ -12,7 +12,7 @@ import com.github.sadjz.R;
 import com.github.sadjz.models.login.TokenModel;
 import com.github.sadjz.models.user.UserModel;
 
-public class Home extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     //TODO: Change this to a Singleton later on
     static UserModel userModel;
@@ -33,20 +33,20 @@ public class Home extends AppCompatActivity {
         emailLabel = findViewById(R.id.emailLabel);
         nameLabel = findViewById(R.id.nameLabel);
         mapDataBtn = findViewById(R.id.MapDataBtn);
-        typeLabel.setText(Home.userModel.getType().name());
-        emailLabel.setText(Home.userModel.getEmail());
-        nameLabel.setText(Home.userModel.getName());
+        typeLabel.setText(HomeActivity.userModel.getType().name());
+        emailLabel.setText(HomeActivity.userModel.getEmail());
+        nameLabel.setText(HomeActivity.userModel.getName());
         mapDataBtn.setText("Map Data");
     }
 
 
     public void onLogoutPressed(View view) {
-        Intent intent = new Intent(this, WelcomeScreen.class);
+        Intent intent = new Intent(this, WelcomeActivity.class);
         startActivity(intent);
     }
 
     public void onMapDataPressed(View view) {
-        Intent intent = new Intent(this, LocationList.class);
+        Intent intent = new Intent(this, LocationListActivity.class);
         startActivity(intent);
     }
 

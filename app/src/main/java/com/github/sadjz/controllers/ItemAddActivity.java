@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.github.sadjz.R;
 import com.github.sadjz.datastructures.RestCallback;
@@ -16,7 +14,7 @@ import com.github.sadjz.models.account.ServerResponse;
 import com.github.sadjz.models.donationItem.DonationItemModel;
 import com.github.sadjz.models.donationItem.ItemCategory;
 
-public class ItemAdd extends AppCompatActivity {
+public class ItemAddActivity extends AppCompatActivity {
 
     private EditText descriptionText;
     private EditText nameText;
@@ -46,7 +44,7 @@ public class ItemAdd extends AppCompatActivity {
     public void onAddItemPress(final View view) {
 
 
-        final ItemAdd currentActivity = this;
+        final ItemAddActivity currentActivity = this;
 
         DonationItemModel donationItemModel = new DonationItemModel(nameText.getText().toString(),
                                                                     descriptionText.getText().toString(),
@@ -57,9 +55,12 @@ public class ItemAdd extends AppCompatActivity {
         RestCallback<ServerResponse[]> donationItemCallback = new RestCallback<ServerResponse[]>() {
             @Override
             public void invokeSuccess(ServerResponse[] model) {
+                if (model.length == 0){
+                    currentActivity.finish();
 
-                Intent intent = new Intent(currentActivity, Home.class);
-                startActivity(intent);
+                }else{
+                    Snackbar.make(view, model[0].getErrorMessage(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
             }
 
             @Override
@@ -69,7 +70,7 @@ public class ItemAdd extends AppCompatActivity {
         };
 
 
-        donationItemManager.addDonationItem(Home.tokenModel, donationItemModel, donationItemCallback);
+        donationItemManager.addDonationItem(HomeActivity.tokenModel, donationItemModel, donationItemCallback);
 
 
 

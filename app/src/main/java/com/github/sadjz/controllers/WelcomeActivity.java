@@ -7,7 +7,7 @@ import android.view.View;
 import com.github.sadjz.R;
 
 
-public class WelcomeScreen extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,7 @@ public class WelcomeScreen extends AppCompatActivity {
     }
 
     public void onLoginPressed(View view) {
-        Intent intent = new Intent(this, Login.class);
+        Intent intent = new Intent(this, LoginActivity.class);
 
         startActivity(intent);
 
@@ -25,7 +25,7 @@ public class WelcomeScreen extends AppCompatActivity {
 
 
     public void onRegisterPressed(View view) {
-        Intent intent = new Intent(this, Register.class);
+        Intent intent = new Intent(this, RegisterActivity.class);
 
         startActivity(intent);
 

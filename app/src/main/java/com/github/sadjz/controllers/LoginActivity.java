@@ -19,7 +19,7 @@ import com.github.sadjz.models.user.UserModel;
 
 
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private EditText usernameTextfield;
     private EditText passwordTextfield;
@@ -42,7 +42,7 @@ public class Login extends AppCompatActivity {
 
     public void onBackToWelcomePress(View view) {
 
-        Intent intent = new Intent(this, WelcomeScreen.class);
+        Intent intent = new Intent(this, WelcomeActivity.class);
 
         startActivity(intent);
     }
@@ -51,7 +51,7 @@ public class Login extends AppCompatActivity {
     public void onLoginPressed(final View view) {
         final AccountManager accountManager = new AccountManager();
         loginBtn.setText("Abort");
-        final Login currentActivity = this;
+        final LoginActivity currentActivity = this;
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -67,8 +67,8 @@ public class Login extends AppCompatActivity {
             @Override
             public void invokeSuccess(UserModel model) {
 
-                Home.userModel = model;
-                Intent intent = new Intent(currentActivity, Home.class);
+                HomeActivity.userModel = model;
+                Intent intent = new Intent(currentActivity, HomeActivity.class);
 
                 startActivity(intent);
 
@@ -81,7 +81,7 @@ public class Login extends AppCompatActivity {
             public void invokeFailure(){
                 Snackbar.make(view, "Please enter the correct credentials", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
-                loginBtn.setText("Login");
+                loginBtn.setText("LoginActivity");
                 loginBtn.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View v) {

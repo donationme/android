@@ -21,7 +21,7 @@ import com.github.sadjz.models.login.LoginModel;
 import com.github.sadjz.models.user.UserModel;
 import com.github.sadjz.models.user.UserType;
 
-public class Register extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     private EditText usernameTextfield;
     private EditText passwordTextfield;
@@ -55,7 +55,7 @@ public class Register extends AppCompatActivity {
         final RestManager loginRestManager = new RestManager();
         final AccountManager accountManager = new AccountManager();
 
-        final Register currentActivity = this;
+        final RegisterActivity currentActivity = this;
         final LoginModel loginModel = new LoginModel(usernameTextfield.getText().toString(),passwordTextfield.getText().toString());
         AccountModel accountModel = new AccountModel(loginModel,
                 new UserModel(nameTextfield.getText().toString(), usernameTextfield.getText().toString(), (UserType) typeSpinner.getSelectedItem()));
@@ -85,8 +85,8 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void invokeSuccess(UserModel model) {
 
-                        Home.userModel = model;
-                        Intent intent = new Intent(currentActivity, Home.class);
+                        HomeActivity.userModel = model;
+                        Intent intent = new Intent(currentActivity, HomeActivity.class);
 
                         startActivity(intent);
 
@@ -109,7 +109,7 @@ public class Register extends AppCompatActivity {
 
             @Override
             public void invokeFailure(){
-                registerButton.setText("Login");
+                registerButton.setText("LoginActivity");
                 registerButton.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View v) {

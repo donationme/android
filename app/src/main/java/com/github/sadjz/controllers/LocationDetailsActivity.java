@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class LocationDetails extends AppCompatActivity implements ListAdapter.ItemClickListener{
+public class LocationDetailsActivity extends AppCompatActivity implements ListAdapter.ItemClickListener{
 
     private TextView nameTextField;
     private TextView addressTextField;
@@ -57,7 +57,7 @@ public class LocationDetails extends AppCompatActivity implements ListAdapter.It
 
 
 
-        if (!(Home.userModel.getType() == UserType.Admin || Home.userModel.getType() == UserType.LocationEmployee)){
+        if (!(HomeActivity.userModel.getType() == UserType.Admin || HomeActivity.userModel.getType() == UserType.LocationEmployee)){
             addItemButton.setVisibility(View.GONE);
         }
 
@@ -82,7 +82,7 @@ public class LocationDetails extends AppCompatActivity implements ListAdapter.It
 
         DonationItemModel donationItemListObject =  new DonationItemModel("","",0,ItemCategory.Other,"2018-10-24T03:06:42.219Z","",location.getId());
 
-        Intent intent = new Intent(this, ItemAdd.class);
+        Intent intent = new Intent(this, ItemAddActivity.class);
         intent.putExtra("itemData", donationItemListObject);
 
         startActivity(intent);
@@ -96,7 +96,7 @@ public class LocationDetails extends AppCompatActivity implements ListAdapter.It
 
         DonationItemModel donationItemListObject =  items.get(position);
 
-        Intent intent = new Intent(this, ItemDetails.class);
+        Intent intent = new Intent(this, ItemDetailsActivity.class);
         intent.putExtra("itemData", donationItemListObject);
 
         startActivity(intent);

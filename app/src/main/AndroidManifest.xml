@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.github.sadjz">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -10,42 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controllers.WelcomeScreen">
+        <activity android:name=".controllers.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controllers.Login">
-
-        </activity>
-
-        <activity android:name=".controllers.Register">
-
-        </activity>
-
-
-        <activity android:name=".controllers.Home">
-
-        </activity>
-
-        <activity android:name=".controllers.LocationList">
-
-        </activity>
-
-        <activity android:name=".controllers.LocationDetails">
-
-        </activity>
-
-        <activity android:name=".controllers.ItemDetails">
-
-        </activity>
-
-        <activity android:name=".controllers.ItemAdd">
-
-        </activity>
-
+        <activity android:name=".controllers.LoginActivity"></activity>
+        <activity android:name=".controllers.RegisterActivity"></activity>
+        <activity android:name=".controllers.HomeActivity"></activity>
+        <activity android:name=".controllers.LocationListActivity"></activity>
+        <activity android:name=".controllers.LocationDetailsActivity"></activity>
+        <activity android:name=".controllers.ItemDetailsActivity"></activity>
+        <activity android:name=".controllers.ItemAddActivity"></activity>
     </application>
 
 </manifest>

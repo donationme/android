@@ -19,12 +19,12 @@ import com.github.sadjz.models.location.RegionModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LocationList extends AppCompatActivity implements ListAdapter.ItemClickListener {
+public class LocationListActivity extends AppCompatActivity implements ListAdapter.ItemClickListener {
 
     private RecyclerView locRecyclerView;
     private ListAdapter locAdapter;
     private RegionModel locationModel;
-    LocationList currentActivity;
+    LocationListActivity currentActivity;
 
 
 
@@ -87,7 +87,7 @@ public class LocationList extends AppCompatActivity implements ListAdapter.ItemC
         };
 
 
-        locationManager.getLocations(Home.tokenModel, locationCallback);
+        locationManager.getLocations(HomeActivity.tokenModel, locationCallback);
         currentActivity = this;
 
 
@@ -102,7 +102,7 @@ public class LocationList extends AppCompatActivity implements ListAdapter.ItemC
 
         LocationModel locationListObject =  locationModel.getLocations().get(position);
 
-        Intent intent = new Intent(currentActivity, LocationDetails.class);
+        Intent intent = new Intent(currentActivity, LocationDetailsActivity.class);
         intent.putExtra("locationData", (Parcelable) locationListObject);
 
         startActivity(intent);
