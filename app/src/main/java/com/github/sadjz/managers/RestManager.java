@@ -2,7 +2,7 @@ package com.github.sadjz.managers;
 
 
 import com.github.sadjz.consts.AppConst;
-import com.github.sadjz.models.login.RestEndpoints;
+import com.github.sadjz.consts.RestEndpoints;
 import com.google.gson.Gson;
 
 import java.io.IOException;

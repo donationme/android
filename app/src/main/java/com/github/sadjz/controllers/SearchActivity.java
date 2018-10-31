@@ -1,11 +1,10 @@
 package com.github.sadjz.controllers;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Parcelable;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,34 +12,52 @@ import android.text.Editable;
 import android.text.TextWatcher;
 
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.github.sadjz.R;
+import com.github.sadjz.consts.MessageIdentifier;
 import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.managers.SearchManager;
 import com.github.sadjz.models.donationItem.DonationItemModel;
+import com.github.sadjz.models.donationItem.ItemCategory;
+import com.github.sadjz.models.location.LocationModel;
+import com.github.sadjz.models.message.MessageModel;
 import com.github.sadjz.models.search.SearchModel;
+import com.github.sadjz.models.user.UserType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class SearchActivity extends AppCompatActivity implements ListAdapter.ItemClickListener {
+public class SearchActivity extends  Activity implements ListAdapter.ItemClickListener {
 
     private EditText searchTextField;
-    private SearchModel searchModel;
     private RecyclerView itemRecyclerView;
     private ListAdapter itemAdapter;
     private SearchActivity currentActivity;
     private RadioButton nameRadioBtn;
+    private TextView currentlySelectedText;
+    private Button selectBtn;
     private RadioButton categoryRadioBtn;
+    private List<DonationItemModel> donationItems;
+    private String currentLocationId = "";
+    private boolean isSearchingAll = true;
+    private Spinner categorySpinner;
+    private RadioGroup searchRadioGroup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         searchTextField = findViewById(R.id.searchTextField);
-
+        selectBtn = findViewById(R.id.selectBtn);
+        currentlySelectedText =  findViewById(R.id.currentlySelectedText);
         itemRecyclerView = findViewById(R.id.items);
         nameRadioBtn = findViewById(R.id.nameRadioBtn);
         categoryRadioBtn = findViewById(R.id.categoryRadioBtn);
@@ -48,7 +65,55 @@ public class SearchActivity extends AppCompatActivity implements ListAdapter.Ite
         itemAdapter = new ListAdapter(this);
         itemAdapter.setClickListener(this);
         itemRecyclerView.setAdapter(itemAdapter);
+        categorySpinner = findViewById(R.id.categorySpinnerSearch);
 
+
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, ItemCategory.values());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapter);
+
+        searchRadioGroup = findViewById(R.id.searchRadioGroup);
+        categorySpinner.setVisibility(View.GONE);
+        categorySpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                ItemCategory[] vals = ItemCategory.values();
+                onSearch(String.valueOf(vals[position]));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {}
+
+        });
+
+
+
+
+        searchRadioGroup = findViewById(R.id.searchRadioGroup);
+        searchRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rb = findViewById(checkedId);
+                String selectedSearch = rb.getTag().toString();
+
+                if (selectedSearch.equals("name")){
+                    categorySpinner.setVisibility(View.GONE);
+                    searchTextField.setVisibility(View.VISIBLE);
+                    itemAdapter.updateList(new ArrayList<String>());
+
+                }else if (selectedSearch.equals("category")){
+                    categorySpinner.setVisibility(View.VISIBLE);
+                    searchTextField.setVisibility(View.GONE);
+                    categorySpinner.setSelection(ItemCategory.Other.ordinal());
+                    itemAdapter.updateList(new ArrayList<String>());
+                    onSearch(String.valueOf(ItemCategory.Other.ordinal()));
+
+                }
+
+
+            }
+        });
 
 
         searchTextField.addTextChangedListener(new TextWatcher() {
@@ -71,6 +136,49 @@ public class SearchActivity extends AppCompatActivity implements ListAdapter.Ite
 
     }
 
+
+
+    public void onSelectLocationOption(View view){
+        if (this.isSearchingAll == false){
+            this.currentLocationId = "";
+            this.isSearchingAll = true;
+            this.currentlySelectedText.setText("");
+            this.selectBtn.setText("Select Specific Location");
+            this.currentlySelectedText.setText("Searching: All Locations");
+
+
+        }else{
+            this.currentLocationId = "";
+            Intent intent = new Intent(this, LocationListActivity.class);
+            intent.putExtra(MessageIdentifier.Message.getMessageIdentifier(), new MessageModel(true));
+            startActivityForResult(intent, 1);
+
+        }
+    }
+
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+
+                LocationModel location = data.getParcelableExtra(MessageIdentifier.Location.getMessageIdentifier());
+                if (location != null){
+                    this.isSearchingAll = false;
+                    this.donationItems = location.getItems();
+                    this.selectBtn.setText("Select All Locations");
+                    this.currentLocationId = location.getId();
+                    this.currentlySelectedText.setText(String .format("Searching : %s",location.getName()));
+
+                }else{
+                    this.isSearchingAll = true;
+                }
+            }
+        }
+    }
+
+
+
     public void onSearch(String query) {
 
         final SearchManager searchManager = new SearchManager();
@@ -80,26 +188,15 @@ public class SearchActivity extends AppCompatActivity implements ListAdapter.Ite
 
         RestCallback<SearchModel> searchCallback = new RestCallback<SearchModel>() {
             @Override
-            public void invokeSuccess(SearchModel model) {
-
+            public void invokeSuccess(final SearchModel model) {
 
                 if (model.getResults() != null){
-                    searchModel = model;
+                    donationItems = model.getResults();
 
                     new Handler(Looper.getMainLooper()).post(new Runnable(){
                         @Override
                         public void run() {
-                            List<DonationItemModel> items = searchModel.getResults();
-                            ArrayList<String> donationItemNames = new ArrayList<String>();
-                            for (DonationItemModel item : items) {
-                                donationItemNames.add(item.getName());
-                            }
-
-                            itemAdapter.updateList(donationItemNames);
-                            if (donationItemNames.size() == 0){
-                                Snackbar.make(currentActivity.getWindow().getDecorView().getRootView(), "No Results", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-
-                            }
+                            updateItems(model.getResults());
                         }
                     });
                 }else{
@@ -117,13 +214,26 @@ public class SearchActivity extends AppCompatActivity implements ListAdapter.Ite
                 Snackbar.make(currentActivity.getWindow().getDecorView().getRootView(), "Please enter valid donation item", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         };
+        if(query.length() > 0) {
 
-        if(query.length() > 0){
-            if (this.categoryRadioBtn.isChecked()){
-                searchManager.searchCategory(HomeActivity.tokenModel, query, searchCallback);
+            if (this.isSearchingAll == true) {
+                if (this.categoryRadioBtn.isChecked()) {
+                    searchManager.searchAllCategory(HomeActivity.tokenModel, query, searchCallback);
 
-            }else{
-                searchManager.searchNameQuery(HomeActivity.tokenModel, query, searchCallback);
+                } else {
+                    searchManager.searchAllName(HomeActivity.tokenModel, query, searchCallback);
+
+                }
+            } else {
+
+
+                if (this.categoryRadioBtn.isChecked()) {
+                    searchManager.searchSpecificCategory(HomeActivity.tokenModel, query, searchCallback, this.currentLocationId);
+
+                } else {
+                    searchManager.searchSpecificName(HomeActivity.tokenModel, query, searchCallback, this.currentLocationId);
+
+                }
 
             }
         }else{
@@ -131,17 +241,35 @@ public class SearchActivity extends AppCompatActivity implements ListAdapter.Ite
             itemAdapter.updateList(new ArrayList<String>());
         }
 
+
+
+
     }
+
+    private void updateItems(List<DonationItemModel> donationItems){
+        ArrayList<String> donationItemNames = new ArrayList<String>();
+        for (DonationItemModel item : donationItems) {
+            donationItemNames.add(item.getName());
+        }
+
+        itemAdapter.updateList(donationItemNames);
+
+//        if (donationItemNames.size() == 0){
+//            Snackbar.make(currentActivity.getWindow().getDecorView().getRootView(), "No Results", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+//
+//        }
+    }
+
 
     @Override
     public void onItemClick(View view, int position) {
 
 
 
-        DonationItemModel donationItemModel =  searchModel.getResults().get(position);
+        DonationItemModel donationItemModel =  donationItems.get(position);
 
         Intent intent = new Intent(currentActivity, ItemDetailsActivity.class);
-        intent.putExtra("itemData", (Parcelable) donationItemModel);
+        intent.putExtra(MessageIdentifier.DonationItem.getMessageIdentifier(), donationItemModel);
 
         startActivity(intent);
 

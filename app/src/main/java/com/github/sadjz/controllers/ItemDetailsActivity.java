@@ -5,10 +5,13 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.github.sadjz.consts.MessageIdentifier;
 import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.managers.DonationItemManager;
 import com.github.sadjz.models.account.ServerResponse;
@@ -24,9 +27,9 @@ public class ItemDetailsActivity extends AppCompatActivity {
     private EditText descriptionText;
     private EditText nameText;
     private EditText quantityText;
-    private EditText categoryText;
     private Button editButton;
     private Button removeButton;
+    private Spinner categorySpinner;
 
     DonationItemModel item;
     final DonationItemManager donationItemManager = new DonationItemManager();
@@ -34,34 +37,39 @@ public class ItemDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
+        item = getIntent().getParcelableExtra(MessageIdentifier.DonationItem.getMessageIdentifier());
 
         timeText = findViewById(R.id.timeText);
         descriptionText = findViewById(R.id.descriptionText);
         nameText = findViewById(R.id.nameText);
         quantityText = findViewById(R.id.quantityText);
-        categoryText = findViewById(R.id.categoryText);
         editButton = findViewById(R.id.editButton);
         removeButton = findViewById(R.id.removeButton);
+        categorySpinner = findViewById(R.id.categorySpinnerDetail);
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, ItemCategory.values());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapter);
+        categorySpinner.setSelection(item.getCategory().ordinal());
 
 
         if (!(HomeActivity.userModel.getType() == UserType.Admin || HomeActivity.userModel.getType() == UserType.LocationEmployee)){
             descriptionText.setEnabled(false);
             nameText.setEnabled(false);
             quantityText.setEnabled(false);
-            categoryText.setEnabled(false);
+            categorySpinner.setEnabled(false);
             editButton.setVisibility(View.GONE);
             removeButton.setVisibility(View.GONE);
         }
 
 
-        item = getIntent().getParcelableExtra("itemData");
 
 
         timeText.setText(item.getTime());
         descriptionText.setText(item.getDescription());
         nameText.setText(item.getName());
         quantityText.setText( String.valueOf(item.getQuantity()));
-        categoryText.setText( item.getCategory().name());
 
 
     }
@@ -70,22 +78,24 @@ public class ItemDetailsActivity extends AppCompatActivity {
     public void onEditItemPress(final View view) {
 
 
-        final ItemDetailsActivity currentActivity = this;
 
-        DonationItemModel donationItemModel = new DonationItemModel(nameText.getText().toString(),
+        this.item = new DonationItemModel(nameText.getText().toString(),
                                                                     descriptionText.getText().toString(),
                                                                     Integer.parseInt(quantityText.getText().toString()),
-                                                                    ItemCategory.valueOf(categoryText.getText().toString()),
-                item.getTime(),item.getID(), item.getLocationid());
+                                                                    (ItemCategory) categorySpinner.getSelectedItem(),
+                                                                    item.getTime(),item.getID(), item.getLocationid());
+
+        final ItemDetailsActivity currentActivity = this;
 
 
         RestCallback<ServerResponse[]> donationItemCallback = new RestCallback<ServerResponse[]>() {
             @Override
             public void invokeSuccess(ServerResponse[] model) {
 
-                Intent intent = new Intent(currentActivity, HomeActivity.class);
-                startActivity(intent);
-//                currentActivity.finish();
+                Intent intent = new Intent();
+                intent.putExtra(MessageIdentifier.DonationEditItem.getMessageIdentifier(), currentActivity.item);
+                setResult(MessageIdentifier.DonationEditItem.ordinal(), intent);
+                currentActivity.finish();
 
             }
 
@@ -96,7 +106,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         };
 
 
-        donationItemManager.editDonationItem(HomeActivity.tokenModel, donationItemModel, donationItemCallback);
+        donationItemManager.editDonationItem(HomeActivity.tokenModel, item, donationItemCallback);
 
 
 
@@ -115,8 +125,13 @@ public class ItemDetailsActivity extends AppCompatActivity {
             @Override
             public void invokeSuccess(ServerResponse[] model) {
                 if (model.length == 0) {
-                    Intent intent = new Intent(currentActivity, HomeActivity.class);
-                    startActivity(intent);
+
+                    Intent intent = new Intent();
+                    intent.putExtra(MessageIdentifier.DonationRemoveItem.getMessageIdentifier(), currentActivity.item);
+                    setResult(MessageIdentifier.DonationRemoveItem.ordinal(), intent);
+                    currentActivity.finish();
+
+
                 }else{
                     Snackbar.make(view, model[0].getErrorMessage(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
 

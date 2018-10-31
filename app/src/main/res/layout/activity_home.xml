@@ -10,139 +10,99 @@
         android:layout_height="match_parent"
         tools:context="com.github.sadjz.controllers.LoginActivity">
 
-        <TextView
-            android:id="@+id/textView2"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:text="@string/username"
-            app2:layout_constraintBottom_toTopOf="@+id/nameLabel"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
             app2:layout_constraintEnd_toEndOf="parent"
-            app2:layout_constraintHorizontal_bias="0.5"
             app2:layout_constraintStart_toStartOf="parent"
-            app2:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app2:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:text="@string/name"
-            app2:layout_constraintBottom_toTopOf="@+id/emailLabel"
-            app2:layout_constraintEnd_toEndOf="parent"
-            app2:layout_constraintHorizontal_bias="0.501"
-            app2:layout_constraintStart_toStartOf="parent"
-            app2:layout_constraintTop_toBottomOf="@+id/typeLabel" />
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:text="@string/userType"
-            app2:layout_constraintBottom_toTopOf="@+id/typeLabel"
-            app2:layout_constraintEnd_toEndOf="parent"
-            app2:layout_constraintHorizontal_bias="0.5"
-            app2:layout_constraintStart_toStartOf="parent"
-            app2:layout_constraintTop_toBottomOf="@+id/nameLabel" />
+            <Button
+                android:id="@+id/searchBtn"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:drawableBottom="@drawable/ic_search_black_40dp"
+                android:onClick="onSearchPressed" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="97dp"
-            android:layout_height="41dp"
-            android:layout_marginBottom="17dp"
-            android:layout_marginTop="17dp"
-            android:text="@string/login"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            app2:layout_constraintBottom_toTopOf="@+id/textView2"
-            app2:layout_constraintEnd_toEndOf="parent"
-            app2:layout_constraintHorizontal_bias="0.5"
-            app2:layout_constraintStart_toStartOf="parent"
-            app2:layout_constraintTop_toTopOf="parent" />
+            <Space
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            <Button
+                android:id="@+id/mapDataBtn"
+
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:drawableBottom="@drawable/ic_map_black_40dp"
+                android:onClick="onMapDataPressed" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="@drawable/ic_launcher_foreground"
+            android:layout_width="382dp"
+            android:layout_height="495dp"
             android:orientation="vertical"
-            app2:layout_constraintGuide_end="388dp" />
-
-        <Button
-            android:id="@+id/logoutBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:onClick="onLogoutPressed"
-            android:text="@string/logout"
-            app2:layout_constraintEnd_toEndOf="parent"
-            app2:layout_constraintStart_toStartOf="parent"
-            app2:layout_constraintTop_toBottomOf="@+id/emailLabel" />
-
-        <TextView
-            android:id="@+id/emailLabel"
-            android:layout_width="126dp"
-            android:layout_height="39dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:text="TextView"
-            android:textAlignment="center"
-            app2:layout_constraintBottom_toTopOf="@+id/logoutBtn"
-            app2:layout_constraintTop_toBottomOf="@+id/textView3"
-            tools:layout_editor_absoluteX="129dp" />
-
-        <TextView
-            android:id="@+id/typeLabel"
-            android:layout_width="126dp"
-            android:layout_height="39dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:text="TextView"
-            android:textAlignment="center"
-            app2:layout_constraintBottom_toTopOf="@+id/textView3"
-            app2:layout_constraintTop_toBottomOf="@+id/textView8"
-            tools:layout_editor_absoluteX="129dp" />
-
-        <TextView
-            android:id="@+id/nameLabel"
-            android:layout_width="126dp"
-            android:layout_height="39dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:text="TextView"
-            android:textAlignment="center"
-            app2:layout_constraintBottom_toTopOf="@+id/textView8"
-            app2:layout_constraintTop_toBottomOf="@+id/textView2"
-            tools:layout_editor_absoluteX="129dp" />
-
-        <Button
-            android:id="@+id/MapDataBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="47dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:onClick="onMapDataPressed"
-            android:text="MapData"
-            app2:layout_constraintEnd_toEndOf="parent"
-            app2:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/mapDataBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="47dp"
-            android:layout_marginStart="57dp"
-            android:layout_marginTop="76dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="388dp"
-            android:onClick="onSearchPressed"
-            android:text="Search"
             app2:layout_constraintBottom_toBottomOf="parent"
             app2:layout_constraintEnd_toEndOf="parent"
-            app2:layout_constraintStart_toEndOf="@+id/textView2"
-            app2:layout_constraintTop_toTopOf="parent" />
+            app2:layout_constraintStart_toStartOf="parent"
+            app2:layout_constraintTop_toTopOf="parent">
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+            <TextView
+
+                android:id="@+id/emailLabel"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:text="Email"
+                android:textAlignment="center"
+                app2:layout_constraintBottom_toTopOf="@+id/logoutBtn"
+                />
+
+            <TextView
+                android:id="@+id/typeLabel"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:text="Type"
+                android:textAlignment="center"
+
+                />
+
+            <TextView
+                android:id="@+id/nameLabel"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:text="Name"
+                android:textAlignment="center"
+
+                />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="280dp" />
+
+            <Button
+                android:id="@+id/logoutBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onLogoutPressed"
+                android:text="@string/logout"
+                app2:layout_constraintEnd_toEndOf="parent"
+                app2:layout_constraintStart_toStartOf="parent"
+                app2:layout_constraintTop_toBottomOf="@+id/emailLabel" />
+
+
+        </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

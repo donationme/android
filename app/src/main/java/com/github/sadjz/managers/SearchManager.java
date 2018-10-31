@@ -1,7 +1,7 @@
 package com.github.sadjz.managers;
 
 import com.github.sadjz.datastructures.RestCallback;
-import com.github.sadjz.models.login.RestEndpoints;
+import com.github.sadjz.consts.RestEndpoints;
 import com.github.sadjz.models.login.TokenModel;
 import com.github.sadjz.models.search.SearchModel;
 
@@ -11,11 +11,18 @@ public class SearchManager {
     private final RestManager searchRestManager = new RestManager();
 
 
-    public void searchNameQuery(TokenModel token, String query ,  RestCallback<SearchModel> searchCallback) {
+
+    public void abortSearch(){
+        this.searchRestManager.abortRequest();
+
+    }
+
+
+    public void searchAllName(TokenModel token, String query , RestCallback<SearchModel> searchCallback) {
 
         try{
 
-            searchRestManager.getRequest(token.token, RestEndpoints.SearchName, searchCallback, String.format("/%s",query));
+            searchRestManager.getRequest(token.token, RestEndpoints.SearchAllName, searchCallback, String.format("/atlanta/%s",query));
 
         }catch (Exception e){
             searchCallback.invokeFailure();
@@ -23,16 +30,39 @@ public class SearchManager {
 
     }
 
-    public void abortSearch(){
-        this.searchRestManager.abortRequest();
 
-    }
-
-    public void searchCategory(TokenModel token, String query , RestCallback<SearchModel> searchCallback) {
+    public void searchAllCategory(TokenModel token, String query , RestCallback<SearchModel> searchCallback) {
 
         try{
 
-            searchRestManager.getRequest(token.token, RestEndpoints.SearchCategory, searchCallback, String.format("/%s",query));
+            searchRestManager.getRequest(token.token, RestEndpoints.SearchAllCategory, searchCallback, String.format("/atlanta/%s",query));
+
+        }catch (Exception e){
+            searchCallback.invokeFailure();
+        }
+
+    }
+
+
+
+    public void searchSpecificName(TokenModel token, String query , RestCallback<SearchModel> searchCallback, String locationid ) {
+
+        try{
+
+            searchRestManager.getRequest(token.token, RestEndpoints.SearchSpecificName, searchCallback, String.format("/atlanta/%s/%s",locationid,query));
+
+        }catch (Exception e){
+            searchCallback.invokeFailure();
+        }
+
+    }
+
+
+    public void searchSpecificCategory(TokenModel token, String query , RestCallback<SearchModel> searchCallback, String locationid) {
+
+        try{
+
+            searchRestManager.getRequest(token.token, RestEndpoints.SearchSpecificCategory, searchCallback, String.format("/atlanta/%s/%s",locationid, query));
 
         }catch (Exception e){
             searchCallback.invokeFailure();

@@ -29,10 +29,10 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        typeLabel = findViewById(R.id.nameLabel);
+        typeLabel = findViewById(R.id.typeLabel);
         emailLabel = findViewById(R.id.emailLabel);
         nameLabel = findViewById(R.id.nameLabel);
-        mapDataBtn = findViewById(R.id.MapDataBtn);
+        mapDataBtn = findViewById(R.id.mapDataBtn);
         typeLabel.setText(HomeActivity.userModel.getType().name());
         emailLabel.setText(HomeActivity.userModel.getEmail());
         nameLabel.setText(HomeActivity.userModel.getName());
@@ -42,7 +42,10 @@ public class HomeActivity extends AppCompatActivity {
 
     public void onLogoutPressed(View view) {
         Intent intent = new Intent(this, WelcomeActivity.class);
+        finishAffinity();
         startActivity(intent);
+        HomeActivity.tokenModel = null;
+        HomeActivity.userModel = null;
     }
 
     public void onMapDataPressed(View view) {

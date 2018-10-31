@@ -7,7 +7,7 @@ import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.models.account.ServerResponse;
 import com.github.sadjz.models.account.AccountModel;
 import com.github.sadjz.models.login.LoginModel;
-import com.github.sadjz.models.login.RestEndpoints;
+import com.github.sadjz.consts.RestEndpoints;
 import com.github.sadjz.models.login.TokenModel;
 import com.github.sadjz.models.user.UserModel;
 

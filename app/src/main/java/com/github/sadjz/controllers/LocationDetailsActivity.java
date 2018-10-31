@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.github.sadjz.consts.MessageIdentifier;
 import com.github.sadjz.models.donationItem.DonationItemModel;
 import com.github.sadjz.models.donationItem.ItemCategory;
 import com.github.sadjz.models.location.LocationModel;
@@ -46,7 +47,7 @@ public class LocationDetailsActivity extends AppCompatActivity implements ListAd
         phoneTextField = findViewById(R.id.quantityTextField);
         websiteTextField = findViewById(R.id.descriptionTextField);
         addItemButton = findViewById(R.id.addItemButton);
-        location = getIntent().getParcelableExtra("locationData");
+        location = getIntent().getParcelableExtra(MessageIdentifier.Location.getMessageIdentifier());
 
         nameTextField.setText(location.getName());
         addressTextField.setText(location.getAddress());
@@ -67,15 +68,96 @@ public class LocationDetailsActivity extends AppCompatActivity implements ListAd
         itemAdapter = new ListAdapter(this);
         itemAdapter.setClickListener(this);
         itemRecyclerView.setAdapter(itemAdapter);
-        items =  location.getItems();
-                ArrayList<String> itemNames = new ArrayList<String>();
-                for (DonationItemModel donationItem : items) {
-                    itemNames.add(donationItem.getName());
-                }
+        this.items = location.getItems();
+        this.updateList(items);
+    }
+
+
+    private void updateList(List<DonationItemModel> items){
+        ArrayList<String> itemNames = new ArrayList<String>();
+        for (DonationItemModel donationItem : items) {
+            itemNames.add(donationItem.getName());
+        }
         itemAdapter.updateList(itemNames);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent();
+        intent.putExtra(MessageIdentifier.Location.getMessageIdentifier(), this.location);
+        setResult(RESULT_OK, intent);
+        this.finish();
 
     }
 
+
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        List<DonationItemModel> oldItems = this.location.getItems();
+
+        if (requestCode == 1) {
+            if(resultCode == MessageIdentifier.DonationEditItem.ordinal()) {
+
+
+                    DonationItemModel editedItem = data.getParcelableExtra(MessageIdentifier.DonationEditItem.getMessageIdentifier());
+
+                        if (editedItem != null){
+                            String newID = editedItem.getID();
+
+                            for (int i =0; i < oldItems.size(); i++) {
+                                String oldID = oldItems.get(i).getID();
+                                if (newID.equals(oldID)){
+                                    oldItems.set(i, editedItem);
+                                    break;
+                                }
+                            }
+                            this.location.setItems(oldItems);
+                            this.updateList(oldItems);
+                        }
+
+
+
+            }else if (resultCode == MessageIdentifier.DonationRemoveItem.ordinal()){
+
+
+
+                DonationItemModel removedItem = data.getParcelableExtra(MessageIdentifier.DonationRemoveItem.getMessageIdentifier());
+                if (removedItem != null){
+
+                    String newID = removedItem.getID();
+
+                    for (int i =0; i < oldItems.size(); i++) {
+                        String oldID = oldItems.get(i).getID();
+                        if (newID.equals(oldID)){
+                            oldItems.remove(i);
+                            break;
+                        }
+                    }
+                    this.location.setItems(oldItems);
+                    this.updateList(oldItems);
+                }
+
+
+
+
+
+
+
+            }
+        }else if (requestCode == 2) {
+            if (resultCode == MessageIdentifier.DonationAddItem.ordinal()) {
+                DonationItemModel newItem = data.getParcelableExtra(MessageIdentifier.DonationAddItem.getMessageIdentifier());
+                if (newItem != null){
+                    oldItems.add(newItem);
+                    this.location.setItems(oldItems);
+                    this.updateList(oldItems);
+                }
+            }
+        }
+    }
 
 
     public void onAddItemPress(final View view) {
@@ -83,9 +165,9 @@ public class LocationDetailsActivity extends AppCompatActivity implements ListAd
         DonationItemModel donationItemListObject =  new DonationItemModel("","",0,ItemCategory.Other,"2018-10-24T03:06:42.219Z","",location.getId());
 
         Intent intent = new Intent(this, ItemAddActivity.class);
-        intent.putExtra("itemData", donationItemListObject);
+        intent.putExtra(MessageIdentifier.DonationItem.getMessageIdentifier(), donationItemListObject);
 
-        startActivity(intent);
+        startActivityForResult(intent, 2);
 
 
     }
@@ -97,8 +179,8 @@ public class LocationDetailsActivity extends AppCompatActivity implements ListAd
         DonationItemModel donationItemListObject =  items.get(position);
 
         Intent intent = new Intent(this, ItemDetailsActivity.class);
-        intent.putExtra("itemData", donationItemListObject);
+        intent.putExtra(MessageIdentifier.DonationItem.getMessageIdentifier(), donationItemListObject);
 
-        startActivity(intent);
+        startActivityForResult(intent,1);
     }
 }

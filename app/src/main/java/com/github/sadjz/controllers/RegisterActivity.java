@@ -52,7 +52,6 @@ public class RegisterActivity extends AppCompatActivity {
     public void onLoginPressed(final View view) {
 
 
-        final RestManager loginRestManager = new RestManager();
         final AccountManager accountManager = new AccountManager();
 
         final RegisterActivity currentActivity = this;

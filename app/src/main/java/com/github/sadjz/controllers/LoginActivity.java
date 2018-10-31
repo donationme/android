@@ -40,13 +40,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void onBackToWelcomePress(View view) {
-
-        Intent intent = new Intent(this, WelcomeActivity.class);
-
-        startActivity(intent);
-    }
-
 
     public void onLoginPressed(final View view) {
         final AccountManager accountManager = new AccountManager();
@@ -69,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 HomeActivity.userModel = model;
                 Intent intent = new Intent(currentActivity, HomeActivity.class);
-
+                finishAffinity();
                 startActivity(intent);
 
 
@@ -81,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
             public void invokeFailure(){
                 Snackbar.make(view, "Please enter the correct credentials", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
-                loginBtn.setText("LoginActivity");
+                loginBtn.setText("Login");
                 loginBtn.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View v) {

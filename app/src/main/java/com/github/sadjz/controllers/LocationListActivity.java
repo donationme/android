@@ -11,10 +11,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.github.sadjz.R;
+import com.github.sadjz.consts.MessageIdentifier;
 import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.managers.LocationManager;
+import com.github.sadjz.models.donationItem.DonationItemModel;
 import com.github.sadjz.models.location.LocationModel;
 import com.github.sadjz.models.location.RegionModel;
+import com.github.sadjz.models.message.MessageModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +28,8 @@ public class LocationListActivity extends AppCompatActivity implements ListAdapt
     private ListAdapter locAdapter;
     private RegionModel region;
     LocationListActivity currentActivity;
-
+    private boolean isForSearch = false;
+    private final LocationManager locationManager = new LocationManager();
 
 
 
@@ -45,10 +49,20 @@ public class LocationListActivity extends AppCompatActivity implements ListAdapt
 
 
         //Put this in Location Controller
+        MessageModel item = getIntent().getParcelableExtra(MessageIdentifier.Message.getMessageIdentifier());
+        if (item != null){
+            this.isForSearch = item.getState();
+        }
+        this.updateLocations();
 
 
-        final LocationManager locationManager = new LocationManager();
 
+
+
+    }
+
+
+    private void updateLocations(){
 
         RestCallback<RegionModel> locationCallback = new RestCallback<RegionModel>() {
             @Override
@@ -95,17 +109,44 @@ public class LocationListActivity extends AppCompatActivity implements ListAdapt
 
     }
 
+
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                LocationModel locationModel = data.getParcelableExtra(MessageIdentifier.Location.getMessageIdentifier());
+                if (locationModel != null){
+
+                    this.updateLocations();
+
+                }
+            }
+        }
+
+
+    }
+
+
+
     @Override
     public void onItemClick(View view, int position) {
-
-
-
         LocationModel locationListObject =  region.getLocations().get(position);
 
-        Intent intent = new Intent(currentActivity, LocationDetailsActivity.class);
-        intent.putExtra("locationData", (Parcelable) locationListObject);
 
-        startActivity(intent);
+        if (this.isForSearch){
+            Intent intent = new Intent();
+            intent.putExtra(MessageIdentifier.Location.getMessageIdentifier(), locationListObject);
+            setResult(RESULT_OK, intent);
+            currentActivity.finish();
+
+        }else{
+
+            Intent intent = new Intent(currentActivity, LocationDetailsActivity.class);
+            intent.putExtra(MessageIdentifier.Location.getMessageIdentifier(), locationListObject);
+            startActivityForResult(intent, 1);
+        }
 
     }
 
