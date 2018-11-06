@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,7 +13,6 @@ import com.github.sadjz.R;
 import com.github.sadjz.consts.MessageIdentifier;
 import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.managers.LocationManager;
-import com.github.sadjz.models.donationItem.DonationItemModel;
 import com.github.sadjz.models.location.LocationModel;
 import com.github.sadjz.models.location.RegionModel;
 import com.github.sadjz.models.message.MessageModel;
@@ -48,7 +46,7 @@ public class LocationListActivity extends AppCompatActivity implements ListAdapt
         locRecyclerView.setAdapter(locAdapter);
 
 
-        //Put this in Location Controller
+        //Put this in Region Controller
         MessageModel item = getIntent().getParcelableExtra(MessageIdentifier.Message.getMessageIdentifier());
         if (item != null){
             this.isForSearch = item.getState();

@@ -14,12 +14,15 @@ import android.widget.TextView;
 import com.github.sadjz.consts.MessageIdentifier;
 import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.managers.DonationItemManager;
-import com.github.sadjz.models.account.ServerResponse;
 import com.github.sadjz.models.donationItem.DonationItemModel;
 
 import com.github.sadjz.R;
 import com.github.sadjz.models.donationItem.ItemCategory;
 import com.github.sadjz.models.user.UserType;
+import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.Map;
 
 public class ItemDetailsActivity extends AppCompatActivity {
 
@@ -83,14 +86,14 @@ public class ItemDetailsActivity extends AppCompatActivity {
                                                                     descriptionText.getText().toString(),
                                                                     Integer.parseInt(quantityText.getText().toString()),
                                                                     (ItemCategory) categorySpinner.getSelectedItem(),
-                                                                    item.getTime(),item.getID(), item.getLocationid());
+                                                                    item.getTime(),item.getID(), item.getLocationId());
 
         final ItemDetailsActivity currentActivity = this;
 
 
-        RestCallback<ServerResponse[]> donationItemCallback = new RestCallback<ServerResponse[]>() {
+        RestCallback<LinkedTreeMap> donationItemCallback = new RestCallback<LinkedTreeMap>() {
             @Override
-            public void invokeSuccess(ServerResponse[] model) {
+            public void invokeSuccess(LinkedTreeMap model) {
 
                 Intent intent = new Intent();
                 intent.putExtra(MessageIdentifier.DonationEditItem.getMessageIdentifier(), currentActivity.item);
@@ -121,10 +124,10 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
 
 
-        RestCallback<ServerResponse[]> donationItemCallback = new RestCallback<ServerResponse[]>() {
+        RestCallback<LinkedTreeMap> donationItemCallback = new RestCallback<LinkedTreeMap>() {
             @Override
-            public void invokeSuccess(ServerResponse[] model) {
-                if (model.length == 0) {
+            public void invokeSuccess(LinkedTreeMap model) {
+                if (model.isEmpty()) {
 
                     Intent intent = new Intent();
                     intent.putExtra(MessageIdentifier.DonationRemoveItem.getMessageIdentifier(), currentActivity.item);
@@ -133,7 +136,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
 
                 }else{
-                    Snackbar.make(view, model[0].getErrorMessage(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    Snackbar.make(view, model.values().toArray()[0].toString(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
                 }
             }

@@ -23,7 +23,7 @@ public class LocationManager {
 
         try{
 
-            locationRestManager.getRequest(token.token, RestEndpoints.Location, locationCallback, "/atlanta");
+            locationRestManager.getRequest(token.token, RestEndpoints.Region, locationCallback, "/atlanta");
 
         }catch (Exception e){
             locationCallback.invokeFailure();

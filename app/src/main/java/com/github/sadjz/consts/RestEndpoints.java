@@ -3,7 +3,7 @@ package com.github.sadjz.consts;
 public enum RestEndpoints {
     Account("api/account"),
     Token("api/token"),
-    Location("api/location"),
+    Region("api/region"),
     AddDonationItem("api/donationitem/add"),
     EditDonationItem("api/donationitem/edit"),
     RemoveDonationItem("api/donationitem/remove"),

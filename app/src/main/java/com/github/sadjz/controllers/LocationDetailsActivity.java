@@ -68,7 +68,7 @@ public class LocationDetailsActivity extends AppCompatActivity implements ListAd
         itemAdapter = new ListAdapter(this);
         itemAdapter.setClickListener(this);
         itemRecyclerView.setAdapter(itemAdapter);
-        this.items = location.getItems();
+        this.items = location.getDonationitems();
         this.updateList(items);
     }
 
@@ -96,7 +96,7 @@ public class LocationDetailsActivity extends AppCompatActivity implements ListAd
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        List<DonationItemModel> oldItems = this.location.getItems();
+        List<DonationItemModel> oldItems = this.location.getDonationitems();
 
         if (requestCode == 1) {
             if(resultCode == MessageIdentifier.DonationEditItem.ordinal()) {
@@ -114,7 +114,7 @@ public class LocationDetailsActivity extends AppCompatActivity implements ListAd
                                     break;
                                 }
                             }
-                            this.location.setItems(oldItems);
+                            this.location.setDonationitems(oldItems);
                             this.updateList(oldItems);
                         }
 
@@ -136,7 +136,7 @@ public class LocationDetailsActivity extends AppCompatActivity implements ListAd
                             break;
                         }
                     }
-                    this.location.setItems(oldItems);
+                    this.location.setDonationitems(oldItems);
                     this.updateList(oldItems);
                 }
 
@@ -152,7 +152,7 @@ public class LocationDetailsActivity extends AppCompatActivity implements ListAd
                 DonationItemModel newItem = data.getParcelableExtra(MessageIdentifier.DonationAddItem.getMessageIdentifier());
                 if (newItem != null){
                     oldItems.add(newItem);
-                    this.location.setItems(oldItems);
+                    this.location.setDonationitems(oldItems);
                     this.updateList(oldItems);
                 }
             }

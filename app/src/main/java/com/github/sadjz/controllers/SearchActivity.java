@@ -30,7 +30,6 @@ import com.github.sadjz.models.donationItem.ItemCategory;
 import com.github.sadjz.models.location.LocationModel;
 import com.github.sadjz.models.message.MessageModel;
 import com.github.sadjz.models.search.SearchModel;
-import com.github.sadjz.models.user.UserType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -143,7 +142,7 @@ public class SearchActivity extends  Activity implements ListAdapter.ItemClickLi
             this.currentLocationId = "";
             this.isSearchingAll = true;
             this.currentlySelectedText.setText("");
-            this.selectBtn.setText("Select Specific Location");
+            this.selectBtn.setText("Select Specific Region");
             this.currentlySelectedText.setText("Searching: All Locations");
 
 
@@ -165,7 +164,7 @@ public class SearchActivity extends  Activity implements ListAdapter.ItemClickLi
                 LocationModel location = data.getParcelableExtra(MessageIdentifier.Location.getMessageIdentifier());
                 if (location != null){
                     this.isSearchingAll = false;
-                    this.donationItems = location.getItems();
+                    this.donationItems = location.getDonationitems();
                     this.selectBtn.setText("Select All Locations");
                     this.currentLocationId = location.getId();
                     this.currentlySelectedText.setText(String .format("Searching : %s",location.getName()));
@@ -254,10 +253,10 @@ public class SearchActivity extends  Activity implements ListAdapter.ItemClickLi
 
         itemAdapter.updateList(donationItemNames);
 
-//        if (donationItemNames.size() == 0){
-//            Snackbar.make(currentActivity.getWindow().getDecorView().getRootView(), "No Results", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-//
-//        }
+        if (donationItemNames.size() == 0){
+            Snackbar.make(findViewById(R.id.searchRoot), "No Results", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+        }
     }
 
 

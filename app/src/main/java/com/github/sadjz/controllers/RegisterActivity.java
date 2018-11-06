@@ -13,13 +13,16 @@ import android.widget.Spinner;
 import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.R;
 import com.github.sadjz.managers.AccountManager;
-import com.github.sadjz.managers.RestManager;
-import com.github.sadjz.models.account.ServerResponse;
 import com.github.sadjz.models.account.AccountModel;
 import com.github.sadjz.models.login.LoginModel;
 
 import com.github.sadjz.models.user.UserModel;
 import com.github.sadjz.models.user.UserType;
+import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -72,12 +75,20 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
 
-        RestCallback<ServerResponse[]> accountCreationCallback = new RestCallback<ServerResponse[]>() {
+        RestCallback<LinkedTreeMap> accountCreationCallback = new RestCallback<LinkedTreeMap>() {
             @Override
-            public void invokeSuccess(ServerResponse[] accountCreationResponse) {
+            public void invokeSuccess(LinkedTreeMap accountCreationResponse) {
 
-                if (accountCreationResponse.length >= 1){
-                    Snackbar.make(view, accountCreationResponse[0].getErrorMessage(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if (accountCreationResponse.size() >= 1){
+                    Snackbar.make(view, accountCreationResponse.values().toArray()[0].toString(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    registerButton.setText("Register");
+                    registerButton.setOnClickListener(new View.OnClickListener() {
+
+                        public void onClick(View v) {
+
+                            currentActivity.onLoginPressed(v);
+                        }
+                    });
                 }
 
                 RestCallback<UserModel> loginCallback = new RestCallback<UserModel>() {
@@ -100,7 +111,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 };
 
-                if (accountCreationResponse.length == 0){
+                if (accountCreationResponse.isEmpty()){
                     accountManager.loginAccount(loginModel,loginCallback);
                 }
 
@@ -108,7 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void invokeFailure(){
-                registerButton.setText("LoginActivity");
+                registerButton.setText("Register");
                 registerButton.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View v) {

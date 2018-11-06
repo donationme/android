@@ -4,12 +4,15 @@ import android.util.Log;
 
 import com.github.sadjz.controllers.HomeActivity;
 import com.github.sadjz.datastructures.RestCallback;
-import com.github.sadjz.models.account.ServerResponse;
 import com.github.sadjz.models.account.AccountModel;
 import com.github.sadjz.models.login.LoginModel;
 import com.github.sadjz.consts.RestEndpoints;
 import com.github.sadjz.models.login.TokenModel;
 import com.github.sadjz.models.user.UserModel;
+import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.Map;
 
 public class AccountManager {
 
@@ -72,7 +75,7 @@ public class AccountManager {
 
 
 
-    public void createAccount(AccountModel accountModel, RestCallback<ServerResponse[]> accountCallback) {
+    public void createAccount(AccountModel accountModel, RestCallback<LinkedTreeMap> accountCallback) {
 
 
         try{

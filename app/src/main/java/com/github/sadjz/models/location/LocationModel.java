@@ -10,20 +10,39 @@ import java.util.List;
 public class LocationModel implements Parcelable{
 
 
+
+
+
+
+
+
+
+    @SerializedName("key")
     private long key;
+    @SerializedName("name")
     private String name;
-    private double latitude;
-    private double longitude;
+    @SerializedName("coords")
+    private Coords coords;
+    @SerializedName("street")
     private String street;
+    @SerializedName("city")
     private String city;
+    @SerializedName("state")
     private String state;
+    @SerializedName("zip")
     private long zip;
+    @SerializedName("address")
     private String address;
+    @SerializedName("type")
     private String type;
+    @SerializedName("phone")
     private String phone;
+    @SerializedName("website")
     private String website;
+    @SerializedName("id")
     private String id;
-    private List<DonationItemModel> items;
+    @SerializedName("donationItems")
+    private List<DonationItemModel> donationitems;
 
     @Override
     public int describeContents() {
@@ -33,8 +52,7 @@ public class LocationModel implements Parcelable{
     public LocationModel(Parcel in) {
         key = in.readLong();
         name = in.readString();
-        latitude = in.readDouble();
-        longitude = in.readDouble();
+        coords = in.readParcelable(Coords.class.getClassLoader());
         street = in.readString();
         city = in.readString();
         state = in.readString();
@@ -43,7 +61,7 @@ public class LocationModel implements Parcelable{
         type = in.readString();
         phone = in.readString();
         website = in.readString();
-        items = in.readArrayList(DonationItemModel.class.getClassLoader());
+        donationitems = in.readArrayList(DonationItemModel.class.getClassLoader());
         id = in.readString();
 
     }
@@ -51,8 +69,7 @@ public class LocationModel implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(key);
         dest.writeString(name);
-        dest.writeDouble(latitude);
-        dest.writeDouble(longitude);
+        dest.writeParcelable(coords,0);
         dest.writeString(street);
         dest.writeString(city);
         dest.writeString(state);
@@ -61,7 +78,7 @@ public class LocationModel implements Parcelable{
         dest.writeString(type);
         dest.writeString(phone);
         dest.writeString(website);
-        dest.writeList(items);
+        dest.writeList(donationitems);
         dest.writeString(id);
 
     }
@@ -76,74 +93,44 @@ public class LocationModel implements Parcelable{
         }
     };
 
-    @SerializedName("Key")
     public long getKey() { return key; }
-    @SerializedName("Key")
     public void setKey(long value) { this.key = value; }
 
-    @SerializedName("Name")
     public String getName() { return name; }
-    @SerializedName("Name")
     public void setName(String value) { this.name = value; }
 
-    @SerializedName("Latitude")
-    public double getLatitude() { return latitude; }
-    @SerializedName("Latitude")
-    public void setLatitude(double value) { this.latitude = value; }
+    public Coords getCoords() { return coords; }
+    public void setCoords(Coords value) { this.coords = value; }
 
-    @SerializedName("Longitude")
-    public double getLongitude() { return longitude; }
-    @SerializedName("Longitude")
-    public void setLongitude(double value) { this.longitude = value; }
 
-    @SerializedName("Street")
     public String getStreet() { return street; }
-    @SerializedName("Street")
     public void setStreet(String value) { this.street = value; }
 
-    @SerializedName("City")
     public String getCity() { return city; }
-    @SerializedName("City")
     public void setCity(String value) { this.city = value; }
 
-    @SerializedName("State")
     public String getState() { return state; }
-    @SerializedName("State")
     public void setState(String value) { this.state = value; }
 
-    @SerializedName("Zip")
     public long getZip() { return zip; }
-    @SerializedName("Zip")
     public void setZip(long value) { this.zip = value; }
 
-    @SerializedName("Address")
     public String getAddress() { return address; }
-    @SerializedName("Address")
     public void setAddress(String value) { this.address = value; }
 
-    @SerializedName("Type")
     public String getType() { return type; }
-    @SerializedName("Type")
     public void setType(String value) { this.type = value; }
 
-    @SerializedName("Phone")
     public String getPhone() { return phone; }
-    @SerializedName("Phone")
     public void setPhone(String value) { this.phone = value; }
 
-    @SerializedName("Website")
     public String getWebsite() { return website; }
-    @SerializedName("Website")
     public void setWebsite(String value) { this.website = value; }
 
 
-    @SerializedName("Id")
     public String getId() { return id; }
-    @SerializedName("Id")
     public void getId(String value) { this.id = value; }
 
-    @SerializedName("Items")
-    public List<DonationItemModel> getItems() { return items ; }
-    @SerializedName("Items")
-    public void setItems( List<DonationItemModel> value) { this.items = value; }
+    public List<DonationItemModel> getDonationitems() { return donationitems; }
+    public void setDonationitems(List<DonationItemModel> value) { this.donationitems = value; }
 }
