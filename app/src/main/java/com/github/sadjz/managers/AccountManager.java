@@ -1,94 +1,79 @@
 package com.github.sadjz.managers;
 
 import android.util.Log;
-
+import com.github.sadjz.consts.RestEndpoints;
 import com.github.sadjz.controllers.HomeActivity;
 import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.models.account.AccountModel;
 import com.github.sadjz.models.login.LoginModel;
-import com.github.sadjz.consts.RestEndpoints;
 import com.github.sadjz.models.login.TokenModel;
 import com.github.sadjz.models.user.UserModel;
 import com.google.gson.internal.LinkedTreeMap;
-import com.google.gson.reflect.TypeToken;
-
-import java.util.Map;
 
 public class AccountManager {
-
 
     private final RestManager loginRestManager = new RestManager();
     private final RestManager accountRestManager = new RestManager();
 
+    public void loginAccount(
+            LoginModel loginModel,
+            final RestCallback<UserModel> loginCallback) {
 
-    public void loginAccount(LoginModel loginModel, final RestCallback<UserModel> loginCallback) {
+        try {
 
+            RestCallback<TokenModel> tokenCallback =
+                    new RestCallback<TokenModel>() {
+                        @Override
+                        public void invokeSuccess(TokenModel tokenModel) {
 
-        try{
+                            try {
+                                HomeActivity.tokenModel = tokenModel;
+                                loginRestManager.getRequest(
+                                        tokenModel.token,
+                                        RestEndpoints.Account,
+                                        loginCallback,
+                                        "");
 
-            RestCallback<TokenModel> tokenCallback = new RestCallback<TokenModel>() {
-                    @Override
-                    public void invokeSuccess(TokenModel tokenModel) {
+                            } catch (Exception e) {
+                                Log.d("User Fetch Error", e.getMessage());
+                                loginCallback.invokeFailure();
+                            }
+                        }
 
-                        try{
-                            HomeActivity.tokenModel = tokenModel;
-                            loginRestManager.getRequest(tokenModel.token, RestEndpoints.Account, loginCallback,"");
-
-                        }catch (Exception e){
-                            Log.d("User Fetch Error", e.getMessage());
+                        @Override
+                        public void invokeFailure() {
                             loginCallback.invokeFailure();
                         }
-                    }
-                @Override
-                public void invokeFailure(){
-                    loginCallback.invokeFailure();
+                    };
 
-                }
+            loginRestManager.postRequest(
+                    RestEndpoints.Token, loginModel, tokenCallback, "");
 
-
-
-                };
-
-
-
-
-            loginRestManager.postRequest(RestEndpoints.Token, loginModel, tokenCallback, "");
-
-
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.d("Token Fetch Error", e.getMessage());
             loginCallback.invokeFailure();
-
         }
     }
 
-
-    public void abortLogin(){
+    public void abortLogin() {
         this.loginRestManager.abortRequest();
     }
 
-    public void abortRegistration(){
+    public void abortRegistration() {
         this.accountRestManager.abortRequest();
-
     }
 
+    public void createAccount(
+            AccountModel accountModel,
+            RestCallback<LinkedTreeMap> accountCallback) {
 
+        try {
 
+            accountRestManager.postRequest(
+                    RestEndpoints.Account, accountModel, accountCallback, "");
 
-    public void createAccount(AccountModel accountModel, RestCallback<LinkedTreeMap> accountCallback) {
-
-
-        try{
-
-            accountRestManager.postRequest(RestEndpoints.Account, accountModel, accountCallback, "");
-
-        }catch (Exception e){
+        } catch (Exception e) {
             accountCallback.invokeFailure();
         }
-
     }
-
-
-
-
 }

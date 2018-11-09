@@ -4,22 +4,20 @@ import com.google.gson.annotations.SerializedName;
 
 public class UserModel {
 
-
     @SerializedName("name")
-    private String name;
+    private final String name;
 
     @SerializedName("email")
-    private String email;
+    private final String email;
 
     @SerializedName("type")
-    private UserType type;
+    private final UserType type;
 
-    public UserModel(String name, String email, UserType type){
+    public UserModel(String name, String email, UserType type) {
         this.name = name;
         this.email = email;
         this.type = type;
     }
-
 
     public String getName() {
         return this.name;
@@ -29,10 +27,7 @@ public class UserModel {
         return this.email;
     }
 
-
     public UserType getType() {
         return this.type;
     }
-
-
 }

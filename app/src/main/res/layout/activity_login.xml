@@ -7,7 +7,7 @@
     tools:context="com.github.sadjz.controllers.LoginActivity">
 
     <EditText
-        android:id="@+id/passwordTextfield"
+        android:id="@+id/passwordTextField"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="266dp"
@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/usernameTextfield"
+        android:id="@+id/usernameTextField"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="18dp"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="14dp"
         android:text="@string/username"
-        app:layout_constraintBottom_toTopOf="@+id/usernameTextfield"
+        app:layout_constraintBottom_toTopOf="@+id/usernameTextField"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="9dp"
         android:text="@string/password"
-        app:layout_constraintBottom_toTopOf="@+id/passwordTextfield"
+        app:layout_constraintBottom_toTopOf="@+id/passwordTextField"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
@@ -75,7 +75,7 @@
         app:layout_constraintGuide_end="388dp" />
 
     <Button
-        android:id="@+id/registerBtn"
+        android:id="@+id/loginBtn"
         android:layout_width="215dp"
         android:layout_height="50dp"
         android:layout_marginTop="45dp"
@@ -85,6 +85,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTextfield" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordTextField" />
 
 </android.support.constraint.ConstraintLayout>

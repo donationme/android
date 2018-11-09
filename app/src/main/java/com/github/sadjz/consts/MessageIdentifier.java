@@ -6,9 +6,10 @@ public enum MessageIdentifier {
     DonationRemoveItem("DonationRemoveItemData"),
     DonationAddItem("DonationAddItemData"),
     Location("LocationData"),
-    Message("MessageData"),;
+    Message("MessageData"),
+    ;
 
-    private String identifier;
+    private final String identifier;
 
     MessageIdentifier(String endpointPath) {
         this.identifier = endpointPath;
@@ -17,6 +18,4 @@ public enum MessageIdentifier {
     public String getMessageIdentifier() {
         return this.identifier;
     }
-
-
 }

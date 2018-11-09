@@ -71,7 +71,8 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     android:tag="name"
-                    android:text="@string/name" />
+                    android:text="@string/name"
+                    android:focusable="true" />
 
                 <RadioButton
                     android:id="@+id/categoryRadioBtn"
@@ -80,7 +81,8 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     android:tag="category"
-                    android:text="@string/category" />
+                    android:text="@string/category"
+                    android:focusable="true" />
 
             </RadioGroup>
 

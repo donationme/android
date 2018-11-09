@@ -4,14 +4,14 @@ public enum RestEndpoints {
     Account("api/account"),
     Token("api/token"),
     Region("api/region"),
-    AddDonationItem("api/donationitem/add"),
-    EditDonationItem("api/donationitem/edit"),
-    RemoveDonationItem("api/donationitem/remove"),
+    AddDonationItem("api/donationItem/add"),
+    EditDonationItem("api/donationItem/edit"),
+    RemoveDonationItem("api/donationItem/remove"),
     SearchAllName("api/search/all/name"),
     SearchAllCategory("api/search/all/category"),
     SearchSpecificName("api/search/specific/name"),
     SearchSpecificCategory("api/search/specific/category");
-    private String endpointPath;
+    private final String endpointPath;
 
     RestEndpoints(String endpointPath) {
         this.endpointPath = endpointPath;
@@ -20,6 +20,4 @@ public enum RestEndpoints {
     public String getEndpointPath() {
         return this.endpointPath;
     }
-
-
 }

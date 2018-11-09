@@ -6,19 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.github.sadjz.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
-    private List<String> mData = new ArrayList<>();
-    private LayoutInflater mInflater;
+    private final List<String> mData = new ArrayList<>();
+    private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
-
 
     // data is passed into the constructor
     public ListAdapter(Context context) {
@@ -26,11 +22,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         this.mInflater = LayoutInflater.from(context);
     }
 
-    public void updateList( List<String> data){
+    public void updateList(List<String> data) {
         mData.clear();
         mData.addAll(data);
         this.notifyDataSetChanged();
-
     }
 
     // inflates the row layout from xml when needed
@@ -50,14 +45,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     // total number of rows
     @Override
     public int getItemCount() {
-        return mData == null ? 0 : mData.size();
-
+        return (mData == null) ? 0 : mData.size();
     }
 
-
     // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView;
+    public class ViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
+        final TextView myTextView;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -67,7 +61,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            if (mClickListener != null) {
+                mClickListener.onItemClick(getAdapterPosition());
+            }
         }
     }
 
@@ -83,6 +79,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     // parent activity will implement this method to respond to click events
     public interface ItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(int position);
     }
 }

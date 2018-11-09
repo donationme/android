@@ -6,27 +6,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class AccountModel {
 
-
     @SerializedName("auth")
-    public LoginModel loginModel;
+    private final LoginModel loginModel;
+
     @SerializedName("user")
-    public UserModel userModel;
+    private final UserModel userModel;
 
-
-    public AccountModel(LoginModel loginModel , UserModel userModel){
+    public AccountModel(LoginModel loginModel, UserModel userModel) {
         this.loginModel = loginModel;
         this.userModel = userModel;
     }
-
-    public LoginModel getLoginModel() {
-        return this.loginModel;
-    }
-
-    public UserModel getUserModel() {
-        return this.userModel;
-    }
-
-
-
 
 }
