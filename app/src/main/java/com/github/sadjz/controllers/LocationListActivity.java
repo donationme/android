@@ -16,12 +16,16 @@ import com.github.sadjz.models.location.LocationModel;
 import com.github.sadjz.models.location.RegionModel;
 import com.github.sadjz.models.message.MessageModel;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+/**
+ * The type Location list activity.
+ */
+@SuppressWarnings({"ClassWithTooManyDependencies", "CyclicClassDependency"})
 public class LocationListActivity extends AppCompatActivity
         implements ListAdapter.ItemClickListener {
 
-    private RecyclerView locRecyclerView;
     private ListAdapter locAdapter;
     private RegionModel region;
     private LocationListActivity currentActivity;
@@ -34,16 +38,15 @@ public class LocationListActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_list);
 
-        locRecyclerView = findViewById(R.id.locations);
+        RecyclerView locRecyclerView = findViewById(R.id.locations);
         locRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         locAdapter = new ListAdapter(this);
         locAdapter.setClickListener(this);
         locRecyclerView.setAdapter(locAdapter);
-
+        Intent intent = getIntent();
         // Put this in Region Controller
         MessageModel item =
-                getIntent()
-                        .getParcelableExtra(
+                intent.getParcelableExtra(
                                 MessageIdentifier.Message
                                         .getMessageIdentifier());
         if (item != null) {
@@ -62,9 +65,9 @@ public class LocationListActivity extends AppCompatActivity
                         try {
 
                             region = model;
-
-                            new Handler(Looper.getMainLooper())
-                                    .post(
+                            Looper looper = Looper.getMainLooper();
+                            Handler handler = new Handler(looper);
+                            handler.post(
                                             new Runnable() {
                                                 @Override
                                                 public void run() {
@@ -72,7 +75,7 @@ public class LocationListActivity extends AppCompatActivity
                                                             locations =
                                                                     region
                                                                             .getLocations();
-                                                    List<String>
+                                                    Collection<String>
                                                             locationNames =
                                                             new ArrayList<>();
                                                     for (LocationModel
@@ -88,8 +91,9 @@ public class LocationListActivity extends AppCompatActivity
                                                 }
                                             });
 
-                        } catch (Exception e) {
-                            System.out.print(e);
+                        } catch (Exception ignored) {
+
+
                         }
                     }
 
@@ -97,7 +101,7 @@ public class LocationListActivity extends AppCompatActivity
                     public void invokeFailure() {}
                 };
 
-        locationManager.getLocations(HomeActivity.tokenModel, locationCallback);
+        locationManager.getLocations(HomeActivity.getTokenModel(), locationCallback);
         currentActivity = this;
     }
 
@@ -121,7 +125,8 @@ public class LocationListActivity extends AppCompatActivity
 
     @Override
     public void onItemClick(int position) {
-        LocationModel locationListObject = region.getLocations().get(position);
+        List<LocationModel> locations = region.getLocations();
+        LocationModel locationListObject = locations.get(position);
 
         if (this.isForSearch) {
             Intent intent = new Intent();

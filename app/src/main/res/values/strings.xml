@@ -24,5 +24,5 @@
     <string name="title_activity_search">SearchActivity</string>
     <string name="title_activity_map">MapActivity</string>
     <string name="title_activity_maps">Map</string>
-
+    <string name="welcomeTo">Welcome to</string>
 </resources>

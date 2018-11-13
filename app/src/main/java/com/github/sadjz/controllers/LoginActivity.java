@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,10 @@ import com.github.sadjz.managers.AccountManager;
 import com.github.sadjz.models.login.LoginModel;
 import com.github.sadjz.models.user.UserModel;
 
+/**
+ * The type Login activity.
+ */
+@SuppressWarnings("CyclicClassDependency")
 public class LoginActivity extends AppCompatActivity {
 
     private EditText usernameTextField;
@@ -29,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.loginBtn);
     }
 
-    private void onLoginPressed(final View view) {
+    public void onLoginPressed(final View view) {
         final AccountManager accountManager = new AccountManager();
         loginBtn.setText("Abort");
         final LoginActivity currentActivity = this;
@@ -43,36 +48,41 @@ public class LoginActivity extends AppCompatActivity {
                         accountManager.abortLogin();
                     }
                 });
-
+        Editable usernameEditable = usernameTextField.getText();
+        Editable passwordEditable = passwordTextField.getText();
         LoginModel loginModel =
                 new LoginModel(
-                        usernameTextField.getText().toString(),
-                        passwordTextField.getText().toString());
-        RestCallback<UserModel> loginCallback =
+                        usernameEditable.toString(),
+                        passwordEditable.toString());
+        @SuppressWarnings("unused") RestCallback<UserModel> loginCallback =
                 new RestCallback<UserModel>() {
+                    @SuppressWarnings("unused")
                     @Override
                     public void invokeSuccess(UserModel model) {
 
-                        HomeActivity.userModel = model;
+                        HomeActivity.setUserModel(model);
                         Intent intent =
                                 new Intent(currentActivity, HomeActivity.class);
                         finishAffinity();
                         startActivity(intent);
                     }
 
+                    @SuppressWarnings("unused")
                     @Override
                     public void invokeFailure() {
-                        Snackbar.make(
+                        Snackbar snackbar = Snackbar.make(
                                         view,
                                         "Please enter the correct credentials",
-                                        Snackbar.LENGTH_LONG)
-                                .setAction("Action", null)
-                                .show();
+                                        Snackbar.LENGTH_LONG);
+
+                        snackbar.setAction("Action", null);
+                        snackbar.show();
 
                         loginBtn.setText("Login");
                         loginBtn.setOnClickListener(
                                 new View.OnClickListener() {
 
+                                    @Override
                                     public void onClick(View v) {
 
                                         currentActivity.onLoginPressed(v);

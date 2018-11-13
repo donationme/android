@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+
 import com.github.sadjz.R;
 import com.github.sadjz.consts.MessageIdentifier;
 import com.github.sadjz.datastructures.RestCallback;
@@ -20,9 +22,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.List;
+import java.util.Objects;
 
+/**
+ * The type Maps activity.
+ */
+
+@SuppressWarnings("CyclicClassDependency")
 public class MapsActivity extends FragmentActivity
         implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+    private static final float MAP_ZOOM = 10.0f;
 
     private RegionModel region;
     private final LocationManager locationManager = new LocationManager();
@@ -34,9 +43,11 @@ public class MapsActivity extends FragmentActivity
 
         // Obtain the SupportMapFragment and get notified when the map is ready
         // to be used.
+        FragmentManager fragmentManager =  getSupportFragmentManager();
         SupportMapFragment mapFragment =
-                (SupportMapFragment)
-                        getSupportFragmentManager().findFragmentById(R.id.map);
+                Objects.requireNonNull((SupportMapFragment) fragmentManager.
+                findFragmentById(R.id.map));
+
         mapFragment.getMapAsync(this);
     }
 
@@ -46,8 +57,9 @@ public class MapsActivity extends FragmentActivity
         List<LocationModel> locations = this.region.getLocations();
 
         for (LocationModel location : locations) {
+            String locationName = location.getName();
 
-            if (location.getName().equals(marker.getTitle())) {
+            if (locationName.equals(marker.getTitle())) {
 
                 Intent intent = new Intent(this, LocationDetailsActivity.class);
                 intent.putExtra(
@@ -71,6 +83,7 @@ public class MapsActivity extends FragmentActivity
      * SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+    @SuppressWarnings("FeatureEnvy")
     @Override
     public void onMapReady(final GoogleMap googleMap) {
 
@@ -78,25 +91,25 @@ public class MapsActivity extends FragmentActivity
 
         RestCallback<RegionModel> locationCallback =
                 new RestCallback<RegionModel>() {
+                    @SuppressWarnings("FeatureEnvy")
                     @Override
                     public void invokeSuccess(final RegionModel model) {
 
                         try {
 
-                            new Handler(Looper.getMainLooper())
-                                    .post(
+                            Looper looper = Looper.getMainLooper();
+                            Handler handler = new Handler(looper);
+                            handler.post(
                                             new Runnable() {
+                                                @SuppressWarnings({"FeatureEnvy", "unused"})
                                                 @Override
                                                 public void run() {
                                                     Coords regionCoords =
                                                             model.getCoords();
 
-                                                    LatLng regionLatLng =
-                                                            new LatLng(
-                                                                    regionCoords
-                                                                            .getLatitude(),
-                                                                    regionCoords
-                                                                            .getLongitude());
+                                                    LatLng regionLatLng = new LatLng(
+                                                            model.getLatitude(),
+                                                            model.getLongitude());
 
                                                     googleMap.moveCamera(
                                                             CameraUpdateFactory
@@ -105,39 +118,34 @@ public class MapsActivity extends FragmentActivity
                                                     googleMap.animateCamera(
                                                             CameraUpdateFactory
                                                                     .zoomTo(
-                                                                            10.0f));
+                                                                            MapsActivity.MAP_ZOOM));
 
                                                     region = model;
                                                     List<LocationModel>
                                                             locations =
-                                                                    region
-                                                                            .getLocations();
+                                                                    region.getLocations();
                                                     for (LocationModel
                                                             location :
                                                                     locations) {
 
-                                                        Coords locationCoords =
-                                                                location
-                                                                        .getCoords();
+
                                                         LatLng donationCenter =
                                                                 new LatLng(
-                                                                        locationCoords
-                                                                                .getLatitude(),
-                                                                        locationCoords
-                                                                                .getLongitude());
-                                                        googleMap.addMarker(
-                                                                new MarkerOptions()
-                                                                        .position(
-                                                                                donationCenter)
-                                                                        .title(
-                                                                                location
-                                                                                        .getName()));
+                                                                        location.getLatitude(),
+                                                                        location.getLongitude());
+
+                                                        MarkerOptions markerOptions =
+                                                                new MarkerOptions();
+                                                        markerOptions.position(donationCenter);
+                                                        markerOptions.title(location.getName());
+
+                                                        googleMap.addMarker(markerOptions);
                                                     }
                                                 }
                                             });
 
-                        } catch (Exception e) {
-                            System.out.print(e);
+                        } catch (Exception ignored) {
+
                         }
                     }
 
@@ -145,6 +153,6 @@ public class MapsActivity extends FragmentActivity
                     public void invokeFailure() {}
                 };
 
-        locationManager.getLocations(HomeActivity.tokenModel, locationCallback);
+        locationManager.getLocations(HomeActivity.getTokenModel(), locationCallback);
     }
 }

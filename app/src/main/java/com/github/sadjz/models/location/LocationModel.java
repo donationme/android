@@ -5,10 +5,14 @@ import android.os.Parcelable;
 import com.github.sadjz.models.donationItem.DonationItemModel;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class LocationModel implements Parcelable {
+/**
+ * The type Location model.
+ */
+public final class LocationModel implements Parcelable {
 
     @SerializedName("key")
     private final long key;
@@ -66,8 +70,7 @@ public class LocationModel implements Parcelable {
         type = in.readString();
         phone = in.readString();
         website = in.readString();
-        donationItems =
-                in.readArrayList(DonationItemModel.class.getClassLoader());
+        this.donationItems =  in.readArrayList(DonationItemModel.class.getClassLoader());
         id = in.readString();
     }
 
@@ -88,50 +91,118 @@ public class LocationModel implements Parcelable {
         dest.writeString(id);
     }
 
+    /**
+     * The constant CREATOR.
+     */
     public static final Parcelable.Creator<LocationModel> CREATOR =
             new Parcelable.Creator<LocationModel>() {
+                @Override
                 public LocationModel createFromParcel(Parcel in) {
                     return new LocationModel(in);
                 }
 
+                @Override
                 public LocationModel[] newArray(int size) {
                     return new LocationModel[size];
                 }
             };
 
+
+
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets coords.
+     *
+     * @return the coords
+     */
+    @SuppressWarnings("unused")
     public Coords getCoords() {
         return coords;
     }
 
+    /**
+     * Gets address.
+     *
+     * @return the address
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Gets type.
+     *
+     * @return the type
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Gets phone.
+     *
+     * @return the phone
+     */
     public String getPhone() {
         return phone;
     }
 
+    /**
+     * Gets website.
+     *
+     * @return the website
+     */
     public String getWebsite() {
         return website;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Gets donation items.
+     *
+     * @return the donation items
+     */
     public List<DonationItemModel> getDonationItems() {
         return Collections.unmodifiableList(donationItems);
     }
 
+    /**
+     * Sets donation items.
+     *
+     * @param value the value
+     */
     public void setDonationItems(List<DonationItemModel> value) {
-        this.donationItems = value;
+        donationItems = new ArrayList<>(value);
     }
+
+
+    /**
+     * Gets latitude
+     * @return the latitude
+     */
+    public double getLatitude() {return this.coords.getLatitude();}
+
+
+    /**
+     * Gets longitude
+     * @return the longitude
+     */
+    public double getLongitude() {return this.coords.getLongitude();}
+
 }

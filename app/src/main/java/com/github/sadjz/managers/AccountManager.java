@@ -10,26 +10,42 @@ import com.github.sadjz.models.login.TokenModel;
 import com.github.sadjz.models.user.UserModel;
 import com.google.gson.internal.LinkedTreeMap;
 
+import okhttp3.Callback;
+
+/**
+ * The type Account manager.
+ */
+
+@SuppressWarnings({"CyclicClassDependency", "unused"})
 public class AccountManager {
 
     private final RestManager loginRestManager = new RestManager();
     private final RestManager accountRestManager = new RestManager();
 
+    /**
+     * Login account.
+     *
+     * @param loginModel    the login model
+     * @param loginCallback the login callback
+     */
+    @SuppressWarnings("FeatureEnvy")
     public void loginAccount(
             LoginModel loginModel,
             final RestCallback<UserModel> loginCallback) {
 
         try {
 
-            RestCallback<TokenModel> tokenCallback =
+            //noinspection unused
+            @SuppressWarnings("unused") Callback tokenCallback =
                     new RestCallback<TokenModel>() {
+                        @SuppressWarnings("unused")
                         @Override
                         public void invokeSuccess(TokenModel tokenModel) {
 
                             try {
-                                HomeActivity.tokenModel = tokenModel;
+                                HomeActivity.setTokenModel(tokenModel);
                                 loginRestManager.getRequest(
-                                        tokenModel.token,
+                                        tokenModel.getToken(),
                                         RestEndpoints.Account,
                                         loginCallback,
                                         "");
@@ -40,6 +56,7 @@ public class AccountManager {
                             }
                         }
 
+                        @SuppressWarnings("unused")
                         @Override
                         public void invokeFailure() {
                             loginCallback.invokeFailure();
@@ -55,14 +72,26 @@ public class AccountManager {
         }
     }
 
+    /**
+     * Abort login.
+     */
     public void abortLogin() {
         this.loginRestManager.abortRequest();
     }
 
+    /**
+     * Abort registration.
+     */
     public void abortRegistration() {
         this.accountRestManager.abortRequest();
     }
 
+    /**
+     * Create account.
+     *
+     * @param accountModel    the account model
+     * @param accountCallback the account callback
+     */
     public void createAccount(
             AccountModel accountModel,
             RestCallback<LinkedTreeMap> accountCallback) {

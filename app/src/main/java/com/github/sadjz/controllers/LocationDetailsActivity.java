@@ -2,6 +2,7 @@ package com.github.sadjz.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,40 +14,40 @@ import com.github.sadjz.consts.MessageIdentifier;
 import com.github.sadjz.models.donationItem.DonationItemModel;
 import com.github.sadjz.models.donationItem.ItemCategory;
 import com.github.sadjz.models.location.LocationModel;
+import com.github.sadjz.models.user.UserModel;
 import com.github.sadjz.models.user.UserType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+/**
+ * The type Location details activity.
+ */
+
+@SuppressWarnings({"ClassWithTooManyDependencies", "CyclicClassDependency"})
 public class LocationDetailsActivity extends AppCompatActivity
         implements ListAdapter.ItemClickListener {
 
-    private TextView nameTextField;
-    private TextView addressTextField;
-    private TextView typeTextField;
-    private TextView phoneTextField;
-    private TextView websiteTextField;
-
-    private RecyclerView itemRecyclerView;
     private ListAdapter itemAdapter;
     private List<DonationItemModel> items;
     private LocationModel location;
-    private Button addItemButton;
 
+    @SuppressWarnings("FeatureEnvy")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_detail);
 
-        nameTextField = findViewById(R.id.nameTextField);
-        addressTextField = findViewById(R.id.addressTextField);
-        typeTextField = findViewById(R.id.typeTextField);
-        phoneTextField = findViewById(R.id.quantityTextField);
-        websiteTextField = findViewById(R.id.descriptionTextField);
-        addItemButton = findViewById(R.id.addItemButton);
+        TextView nameTextField = findViewById(R.id.nameTextField);
+        TextView addressTextField = findViewById(R.id.addressTextField);
+        TextView typeTextField = findViewById(R.id.typeTextField);
+        TextView phoneTextField = findViewById(R.id.quantityTextField);
+        TextView websiteTextField = findViewById(R.id.descriptionTextField);
+        Button addItemButton = findViewById(R.id.addItemButton);
+        Intent intent = getIntent();
         location =
-                getIntent()
-                        .getParcelableExtra(
+                intent.getParcelableExtra(
                                 MessageIdentifier.Location
                                         .getMessageIdentifier());
 
@@ -55,14 +56,16 @@ public class LocationDetailsActivity extends AppCompatActivity
         typeTextField.setText(location.getType());
         phoneTextField.setText(location.getPhone());
         websiteTextField.setText(location.getWebsite());
+        UserModel userModel = Objects.requireNonNull(HomeActivity.getUserModel());
 
-        if (!((HomeActivity.userModel.getType() == UserType.Admin)
-                || (HomeActivity.userModel.getType()
+        //noinspection LawOfDemeter,LawOfDemeter
+        if (!((userModel.getType() == UserType.Admin)
+                || (userModel.getType()
                 == UserType.LocationEmployee))) {
             addItemButton.setVisibility(View.GONE);
         }
 
-        itemRecyclerView = findViewById(R.id.items);
+        RecyclerView itemRecyclerView = findViewById(R.id.items);
         itemRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         itemAdapter = new ListAdapter(this);
         itemAdapter.setClickListener(this);
@@ -72,7 +75,7 @@ public class LocationDetailsActivity extends AppCompatActivity
     }
 
     private void updateList(List<DonationItemModel> items) {
-        List<String> itemNames = new ArrayList<>();
+        ArrayList<String> itemNames = new ArrayList<>();
         for (DonationItemModel donationItem : items) {
             itemNames.add(donationItem.getName());
         }
@@ -90,9 +93,11 @@ public class LocationDetailsActivity extends AppCompatActivity
         this.finish();
     }
 
+    @SuppressWarnings({"FeatureEnvy", "OverlyComplexMethod", "OverlyLongMethod"})
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        List<DonationItemModel> oldItems = this.location.getDonationItems();
+        ArrayList<DonationItemModel> oldItems = new ArrayList<>(this.location.getDonationItems());
 
         if (requestCode == 1) {
             if (resultCode == MessageIdentifier.DonationEditItem.ordinal()) {
@@ -106,7 +111,8 @@ public class LocationDetailsActivity extends AppCompatActivity
                     String newID = editedItem.getID();
 
                     for (int i = 0; i < oldItems.size(); i++) {
-                        String oldID = oldItems.get(i).getID();
+                        DonationItemModel oldItem = oldItems.get(i);
+                        String oldID = oldItem.getID();
                         if (newID.equals(oldID)) {
                             oldItems.set(i, editedItem);
                             break;
@@ -128,7 +134,8 @@ public class LocationDetailsActivity extends AppCompatActivity
                     String newID = removedItem.getID();
 
                     for (int i = 0; i < oldItems.size(); i++) {
-                        String oldID = oldItems.get(i).getID();
+                        DonationItemModel item = oldItems.get(i);
+                        String oldID = item.getID();
                         if (newID.equals(oldID)) {
                             oldItems.remove(i);
                             break;
@@ -153,9 +160,14 @@ public class LocationDetailsActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * On add item press.
+     *
+     * @param view the view
+     */
     public void onAddItemPress(final View view) {
 
-        DonationItemModel donationItemListObject =
+        Parcelable donationItemListObject =
                 new DonationItemModel(
                         "",
                         "",

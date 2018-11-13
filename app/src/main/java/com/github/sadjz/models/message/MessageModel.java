@@ -3,10 +3,18 @@ package com.github.sadjz.models.message;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * The type Message model.
+ */
 public class MessageModel implements Parcelable {
 
     private final boolean state;
 
+    /**
+     * Instantiates a new Message model.
+     *
+     * @param state the state
+     */
     public MessageModel(boolean state) {
         this.state = state;
     }
@@ -26,17 +34,27 @@ public class MessageModel implements Parcelable {
         dest.writeInt(state ? 1 : 0);
     }
 
+    /**
+     * The constant CREATOR.
+     */
     public static final Parcelable.Creator<MessageModel> CREATOR =
             new Parcelable.Creator<MessageModel>() {
+                @Override
                 public MessageModel createFromParcel(Parcel in) {
                     return new MessageModel(in);
                 }
 
+                @Override
                 public MessageModel[] newArray(int size) {
                     return new MessageModel[size];
                 }
             };
 
+    /**
+     * Gets state.
+     *
+     * @return the state
+     */
     public boolean getState() {
         return state;
     }

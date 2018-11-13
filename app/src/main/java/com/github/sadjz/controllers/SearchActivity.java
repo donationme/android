@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -29,16 +30,20 @@ import com.github.sadjz.models.location.LocationModel;
 import com.github.sadjz.models.message.MessageModel;
 import com.github.sadjz.models.search.SearchModel;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+/**
+ * The type Search activity.
+ */
+
+@SuppressWarnings({"ClassWithTooManyDependencies", "CyclicClassDependency"})
 public class SearchActivity extends Activity
         implements ListAdapter.ItemClickListener {
 
     private EditText searchTextField;
-    private RecyclerView itemRecyclerView;
     private ListAdapter itemAdapter;
     private SearchActivity currentActivity;
-    private RadioButton nameRadioBtn;
     private TextView currentlySelectedText;
     private Button selectBtn;
     private RadioButton categoryRadioBtn;
@@ -46,8 +51,8 @@ public class SearchActivity extends Activity
     private String currentLocationId = "";
     private boolean isSearchingAll = true;
     private Spinner categorySpinner;
-    private RadioGroup searchRadioGroup;
 
+    @SuppressWarnings("FeatureEnvy")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +60,7 @@ public class SearchActivity extends Activity
         searchTextField = findViewById(R.id.searchTextField);
         selectBtn = findViewById(R.id.selectBtn);
         currentlySelectedText = findViewById(R.id.currentlySelectedText);
-        itemRecyclerView = findViewById(R.id.items);
-        nameRadioBtn = findViewById(R.id.nameRadioBtn);
+        RecyclerView itemRecyclerView = findViewById(R.id.items);
         categoryRadioBtn = findViewById(R.id.categoryRadioBtn);
         itemRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         itemAdapter = new ListAdapter(this);
@@ -64,8 +68,8 @@ public class SearchActivity extends Activity
         itemRecyclerView.setAdapter(itemAdapter);
         categorySpinner = findViewById(R.id.categorySpinnerSearch);
 
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter(
+        ArrayAdapter<ItemCategory> adapter =
+                new ArrayAdapter<>(
                         this,
                         android.R.layout.simple_spinner_item,
                         ItemCategory.values());
@@ -73,7 +77,7 @@ public class SearchActivity extends Activity
                 android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
 
-        searchRadioGroup = findViewById(R.id.searchRadioGroup);
+        RadioGroup searchRadioGroup = findViewById(R.id.searchRadioGroup);
         categorySpinner.setVisibility(View.GONE);
         categorySpinner.setOnItemSelectedListener(
                 new Spinner.OnItemSelectedListener() {
@@ -91,14 +95,14 @@ public class SearchActivity extends Activity
                     public void onNothingSelected(AdapterView<?> parentView) {}
                 });
 
-        searchRadioGroup = findViewById(R.id.searchRadioGroup);
         searchRadioGroup.setOnCheckedChangeListener(
                 new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(
                             RadioGroup group, int checkedId) {
                         RadioButton rb = findViewById(checkedId);
-                        String selectedSearch = rb.getTag().toString();
+                        Object tag = rb.getTag();
+                        String selectedSearch = tag.toString();
 
                         if ("name".equals(selectedSearch)) {
                             categorySpinner.setVisibility(View.GONE);
@@ -136,6 +140,11 @@ public class SearchActivity extends Activity
                 });
     }
 
+    /**
+     * On select location option.
+     *
+     * @param view the view
+     */
     public void onSelectLocationOption(View view) {
         if (!this.isSearchingAll) {
             this.currentLocationId = "";
@@ -154,6 +163,7 @@ public class SearchActivity extends Activity
         }
     }
 
+    @SuppressWarnings("FeatureEnvy")
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -180,7 +190,8 @@ public class SearchActivity extends Activity
         }
     }
 
-    private void onSearch(String query) {
+    @SuppressWarnings("FeatureEnvy")
+    public void onSearch(String query) {
 
         final SearchManager searchManager = new SearchManager();
 
@@ -188,45 +199,51 @@ public class SearchActivity extends Activity
 
         RestCallback<SearchModel> searchCallback =
                 new RestCallback<SearchModel>() {
+                    @SuppressWarnings("FeatureEnvy")
                     @Override
                     public void invokeSuccess(final SearchModel model) {
 
                         if (model.getResults() != null) {
                             donationItems = model.getResults();
 
-                            new Handler(Looper.getMainLooper())
-                                    .post(
-                                            new Runnable() {
-                                                @Override
-                                                public void run() {
+                            Looper looper = Looper.getMainLooper();
+                            Handler handler = new Handler(looper);
+                            handler.post(
+                                    new Runnable() {
+                                        @Override
+                                        public void run() {
                                                     updateItems(
                                                             model.getResults());
                                                 }
                                             });
                         } else {
-                            Snackbar.make(
-                                            currentActivity
-                                                    .getWindow()
-                                                    .getDecorView()
-                                                    .getRootView(),
+
+                            Window window = currentActivity
+                                    .getWindow();
+                            View view = window.getDecorView();
+                            Snackbar snackbar = Snackbar.make(
+                                            view.getRootView(),
                                             "No Results",
-                                            Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null)
-                                    .show();
+                                            Snackbar.LENGTH_LONG);
+                            snackbar.setAction("Action", null);
+                            snackbar.show();
                         }
                     }
 
                     @Override
                     public void invokeFailure() {
-                        Snackbar.make(
-                                        currentActivity
-                                                .getWindow()
-                                                .getDecorView()
-                                                .getRootView(),
-                                        "Please enter valid donation item",
-                                        Snackbar.LENGTH_LONG)
-                                .setAction("Action", null)
-                                .show();
+
+
+                        Window window = currentActivity
+                                .getWindow();
+                        View view = window.getDecorView();
+                        Snackbar snackbar = Snackbar.make(
+                                view.getRootView(),
+                                "Please enter valid donation item",
+                                Snackbar.LENGTH_LONG);
+                        snackbar.setAction("Action", null);
+                        snackbar.show();
+
                     }
                 };
         if (!query.isEmpty()) {
@@ -234,24 +251,24 @@ public class SearchActivity extends Activity
             if (this.isSearchingAll) {
                 if (this.categoryRadioBtn.isChecked()) {
                     searchManager.searchAllCategory(
-                            HomeActivity.tokenModel, query, searchCallback);
+                            HomeActivity.getTokenModel(), query, searchCallback);
 
                 } else {
                     searchManager.searchAllName(
-                            HomeActivity.tokenModel, query, searchCallback);
+                            HomeActivity.getTokenModel(), query, searchCallback);
                 }
             } else {
 
                 if (this.categoryRadioBtn.isChecked()) {
                     searchManager.searchSpecificCategory(
-                            HomeActivity.tokenModel,
+                            HomeActivity.getTokenModel(),
                             query,
                             searchCallback,
                             this.currentLocationId);
 
                 } else {
                     searchManager.searchSpecificName(
-                            HomeActivity.tokenModel,
+                            HomeActivity.getTokenModel(),
                             query,
                             searchCallback,
                             this.currentLocationId);
@@ -263,8 +280,8 @@ public class SearchActivity extends Activity
         }
     }
 
-    private void updateItems(List<DonationItemModel> donationItems) {
-        List<String> donationItemNames = new ArrayList<>();
+    private void updateItems(Iterable<DonationItemModel> donationItems) {
+        Collection<String> donationItemNames = new ArrayList<>();
         for (DonationItemModel item : donationItems) {
             donationItemNames.add(item.getName());
         }
@@ -272,12 +289,12 @@ public class SearchActivity extends Activity
         itemAdapter.updateList(donationItemNames);
 
         if (donationItemNames.isEmpty()) {
-            Snackbar.make(
+            Snackbar snackbar = Snackbar.make(
                             findViewById(R.id.searchRoot),
                             "No Results",
-                            Snackbar.LENGTH_LONG)
-                    .setAction("Action", null)
-                    .show();
+                            Snackbar.LENGTH_LONG);
+            snackbar.setAction("Action", null);
+            snackbar.show();
         }
     }
 

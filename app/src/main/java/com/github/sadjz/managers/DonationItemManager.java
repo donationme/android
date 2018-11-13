@@ -6,10 +6,20 @@ import com.github.sadjz.models.donationItem.DonationItemModel;
 import com.github.sadjz.models.login.TokenModel;
 import com.google.gson.internal.LinkedTreeMap;
 
+/**
+ * The type Donation item manager.
+ */
 public class DonationItemManager {
 
     private final RestManager donationRestManager = new RestManager();
 
+    /**
+     * Add donation item.
+     *
+     * @param token                   the token
+     * @param donationItem            the donation item
+     * @param addDonationItemCallback the add donation item callback
+     */
     public void addDonationItem(
             TokenModel token,
             DonationItemModel donationItem,
@@ -18,7 +28,7 @@ public class DonationItemManager {
         try {
 
             donationRestManager.postRequest(
-                    token.token,
+                    token.getToken(),
                     RestEndpoints.AddDonationItem,
                     donationItem,
                     addDonationItemCallback,
@@ -29,6 +39,13 @@ public class DonationItemManager {
         }
     }
 
+    /**
+     * Edit donation item.
+     *
+     * @param token                    the token
+     * @param donationItem             the donation item
+     * @param editDonationItemCallback the edit donation item callback
+     */
     public void editDonationItem(
             TokenModel token,
             DonationItemModel donationItem,
@@ -37,7 +54,7 @@ public class DonationItemManager {
         try {
 
             donationRestManager.postRequest(
-                    token.token,
+                    token.getToken(),
                     RestEndpoints.EditDonationItem,
                     donationItem,
                     editDonationItemCallback,
@@ -51,6 +68,13 @@ public class DonationItemManager {
         }
     }
 
+    /**
+     * Remove donation item.
+     *
+     * @param token                    the token
+     * @param donationItem             the donation item
+     * @param editDonationItemCallback the edit donation item callback
+     */
     public void removeDonationItem(
             TokenModel token,
             DonationItemModel donationItem,
@@ -59,7 +83,7 @@ public class DonationItemManager {
         try {
 
             donationRestManager.getRequest(
-                    token.token,
+                    token.getToken(),
                     RestEndpoints.RemoveDonationItem,
                     editDonationItemCallback,
                     String.format(

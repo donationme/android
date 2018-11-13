@@ -4,6 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * The type Donation item model.
+ */
+
 public class DonationItemModel implements Parcelable {
     @SerializedName("name")
     private final String name;
@@ -26,6 +30,18 @@ public class DonationItemModel implements Parcelable {
     @SerializedName("locationId")
     private final String locationId;
 
+    /**
+     * Instantiates a new Donation item model.
+     *
+     * @param name        the name
+     * @param description the description
+     * @param quantity    the quantity
+     * @param category    the category
+     * @param time        the time
+     * @param id          the id
+     * @param locationid  the locationid
+     */
+    @SuppressWarnings("ConstructorWithTooManyParameters")
     public DonationItemModel(
             String name,
             String description,
@@ -48,6 +64,11 @@ public class DonationItemModel implements Parcelable {
         return 0;
     }
 
+    /**
+     * Instantiates a new Donation item model.
+     *
+     * @param in the in
+     */
     public DonationItemModel(Parcel in) {
 
         description = in.readString();
@@ -70,41 +91,81 @@ public class DonationItemModel implements Parcelable {
         dest.writeString(locationId);
     }
 
+    /**
+     * The constant CREATOR.
+     */
     public static final Parcelable.Creator<DonationItemModel> CREATOR =
             new Parcelable.Creator<DonationItemModel>() {
+                @Override
                 public DonationItemModel createFromParcel(Parcel in) {
                     return new DonationItemModel(in);
                 }
 
+                @Override
                 public DonationItemModel[] newArray(int size) {
                     return new DonationItemModel[size];
                 }
             };
 
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets quantity.
+     *
+     * @return the quantity
+     */
     public int getQuantity() {
         return quantity;
     }
 
+    /**
+     * Gets category.
+     *
+     * @return the category
+     */
     public ItemCategory getCategory() {
         return category;
     }
 
+    /**
+     * Gets time.
+     *
+     * @return the time
+     */
     public String getTime() {
         return time;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public String getID() {
         return id;
     }
 
+    /**
+     * Gets location id.
+     *
+     * @return the location id
+     */
     public String getLocationId() {
         return locationId;
     }

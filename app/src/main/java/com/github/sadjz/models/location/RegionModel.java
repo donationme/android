@@ -7,7 +7,11 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Collections;
 import java.util.List;
 
-public class RegionModel implements Parcelable {
+/**
+ * The type Region model.
+ */
+@SuppressWarnings("unused")
+public final class RegionModel implements Parcelable {
 
     @SerializedName("locations")
     private List<LocationModel> locations;
@@ -40,23 +44,53 @@ public class RegionModel implements Parcelable {
         dest.writeString(id);
     }
 
+    /**
+     * The constant CREATOR.
+     */
     public static final Parcelable.Creator<RegionModel> CREATOR =
             new Parcelable.Creator<RegionModel>() {
+                @Override
                 public RegionModel createFromParcel(Parcel in) {
                     return new RegionModel(in);
                 }
 
+                @Override
                 public RegionModel[] newArray(int size) {
                     return new RegionModel[size];
                 }
             };
 
+    /**
+     * Gets locations.
+     *
+     * @return the locations
+     */
     public List<LocationModel> getLocations() {
         return Collections.unmodifiableList(locations);
     }
 
+    /**
+     * Gets coords.
+     *
+     * @return the coords
+     */
     public Coords getCoords() {
         return coords;
     }
+
+
+    /**
+     * Gets latitude
+     * @return the latitude
+     */
+    public double getLatitude() {return this.coords.getLatitude();}
+
+
+    /**
+     * Gets longitude
+     * @return the longitude
+     */
+    public double getLongitude() {return this.coords.getLongitude();}
+
 
 }

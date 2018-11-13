@@ -2,15 +2,32 @@ package com.github.sadjz.models.login;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * The type Token model.
+ */
 public class TokenModel {
 
+    /**
+     * The Token.
+     */
     @SerializedName("token")
-    public String token;
+    private final String token;
 
+    /**
+     * Instantiates a new Token model.
+     *
+     * @param token the token
+     */
+    @SuppressWarnings("unused")
     public TokenModel(String token){
         this.token = token;
     }
 
+    /**
+     * Gets token.
+     *
+     * @return the token
+     */
     public String getToken() {
         return this.token;
     }

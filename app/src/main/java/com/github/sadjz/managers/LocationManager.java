@@ -5,17 +5,26 @@ import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.models.location.RegionModel;
 import com.github.sadjz.models.login.TokenModel;
 
+/**
+ * The type Location manager.
+ */
 public class LocationManager {
 
     private final RestManager locationRestManager = new RestManager();
 
+    /**
+     * Gets locations.
+     *
+     * @param token            the token
+     * @param locationCallback the location callback
+     */
     public void getLocations(
             TokenModel token, RestCallback<RegionModel> locationCallback) {
 
         try {
 
             locationRestManager.getRequest(
-                    token.token,
+                    token.getToken(),
                     RestEndpoints.Region,
                     locationCallback,
                     "/atlanta");

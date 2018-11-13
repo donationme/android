@@ -5,14 +5,27 @@ import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.models.login.TokenModel;
 import com.github.sadjz.models.search.SearchModel;
 
+/**
+ * The type Search manager.
+ */
 public class SearchManager {
 
     private final RestManager searchRestManager = new RestManager();
 
+    /**
+     * Abort search.
+     */
     public void abortSearch() {
         this.searchRestManager.abortRequest();
     }
 
+    /**
+     * Search all name.
+     *
+     * @param token          the token
+     * @param query          the query
+     * @param searchCallback the search callback
+     */
     public void searchAllName(
             TokenModel token,
             String query,
@@ -21,7 +34,7 @@ public class SearchManager {
         try {
 
             searchRestManager.getRequest(
-                    token.token,
+                    token.getToken(),
                     RestEndpoints.SearchAllName,
                     searchCallback,
                     String.format("/atlanta/%s", query));
@@ -31,6 +44,13 @@ public class SearchManager {
         }
     }
 
+    /**
+     * Search all category.
+     *
+     * @param token          the token
+     * @param query          the query
+     * @param searchCallback the search callback
+     */
     public void searchAllCategory(
             TokenModel token,
             String query,
@@ -39,7 +59,7 @@ public class SearchManager {
         try {
 
             searchRestManager.getRequest(
-                    token.token,
+                    token.getToken(),
                     RestEndpoints.SearchAllCategory,
                     searchCallback,
                     String.format("/atlanta/%s", query));
@@ -49,6 +69,14 @@ public class SearchManager {
         }
     }
 
+    /**
+     * Search specific name.
+     *
+     * @param token          the token
+     * @param query          the query
+     * @param searchCallback the search callback
+     * @param locationId     the location id
+     */
     public void searchSpecificName(
             TokenModel token,
             String query,
@@ -58,7 +86,7 @@ public class SearchManager {
         try {
 
             searchRestManager.getRequest(
-                    token.token,
+                    token.getToken(),
                     RestEndpoints.SearchSpecificName,
                     searchCallback,
                     String.format("/atlanta/%s/%s", locationId, query));
@@ -68,6 +96,14 @@ public class SearchManager {
         }
     }
 
+    /**
+     * Search specific category.
+     *
+     * @param token          the token
+     * @param query          the query
+     * @param searchCallback the search callback
+     * @param locationid     the locationid
+     */
     public void searchSpecificCategory(
             TokenModel token,
             String query,
@@ -77,7 +113,7 @@ public class SearchManager {
         try {
 
             searchRestManager.getRequest(
-                    token.token,
+                    token.getToken(),
                     RestEndpoints.SearchSpecificCategory,
                     searchCallback,
                     String.format("/atlanta/%s/%s", locationid, query));

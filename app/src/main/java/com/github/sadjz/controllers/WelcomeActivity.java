@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import com.github.sadjz.R;
 
+/**
+ * The type Welcome activity.
+ */
+@SuppressWarnings("CyclicClassDependency")
 public class WelcomeActivity extends AppCompatActivity {
 
     @Override
@@ -14,12 +18,22 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
     }
 
+    /**
+     * On login pressed.
+     *
+     * @param view the view
+     */
     public void onLoginPressed(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
 
         startActivity(intent);
     }
 
+    /**
+     * On register pressed.
+     *
+     */
+    @SuppressWarnings("unused")
     public void onRegisterPressed(View view) {
         Intent intent = new Intent(this, RegisterActivity.class);
 
