@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.github.sadjz.R;
+
 import com.github.sadjz.consts.MessageIdentifier;
 import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.managers.DonationItemManager;
@@ -33,6 +34,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
     private EditText descriptionText;
     private EditText nameText;
+    private EditText quantityText;
     private Spinner categorySpinner;
 
     private DonationItemModel item;
@@ -53,6 +55,8 @@ public class ItemDetailsActivity extends AppCompatActivity {
         TextView timeText = findViewById(R.id.timeText);
         descriptionText = findViewById(R.id.descriptionText);
         nameText = findViewById(R.id.nameText);
+        quantityText = findViewById(R.id.quantityText);
+
         EditText quantityText = findViewById(R.id.quantityText);
         Button editButton = findViewById(R.id.editButton);
         Button removeButton = findViewById(R.id.removeButton);
@@ -98,7 +102,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
     public void onEditItemPress(final View view) {
         Editable nameEditable = nameText.getText();
         Editable descriptionEditable = descriptionText.getText();
-        Editable quantityEditable = descriptionText.getText();
+        Editable quantityEditable = quantityText.getText();
 
         this.item =
                 new DonationItemModel(

@@ -10,9 +10,11 @@ import com.google.gson.annotations.SerializedName;
 @SuppressWarnings("unused")
 public class AccountModel {
 
+    @SuppressWarnings("FieldCanBeLocal")
     @SerializedName("auth")
     private final LoginModel loginModel;
 
+    @SuppressWarnings("FieldCanBeLocal")
     @SerializedName("user")
     private final UserModel userModel;
 

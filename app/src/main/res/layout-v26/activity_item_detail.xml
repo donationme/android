@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress LongLine -->
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nameLabel"
+                android:layout_width="356dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/name"
+                android:textAlignment="viewStart"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/typeTextField"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTextField" />
+
+            <EditText
+                android:id="@+id/nameText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                tools:ignore="LabelFor"
+                android:importantForAutofill="no" />
+
+            <TextView
+                android:id="@+id/descriptionLabel"
+                android:layout_width="356dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/description"
+                android:textAlignment="viewStart"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/descriptionTextField"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/quantityTextField" />
+
+            <EditText
+                android:id="@+id/descriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                tools:ignore="LabelFor"
+                android:importantForAutofill="no" />
+
+            <TextView
+                android:id="@+id/quantityLabel"
+                android:layout_width="356dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/quantity"
+                android:textAlignment="viewStart"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/quantityTextField"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addressTextField" />
+
+            <EditText
+                android:id="@+id/quantityText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                tools:ignore="LabelFor"
+                android:importantForAutofill="no" />
+
+            <TextView
+                android:id="@+id/timeLabel"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/time"
+                android:textAlignment="viewStart"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/addressTextField"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nameTextField" />
+
+            <TextView
+                android:id="@+id/timeText"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="10dp"
+                android:text=""
+                app:layout_constraintBottom_toTopOf="@+id/descriptionLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/quantityLabel" />
+
+            <TextView
+                android:id="@+id/categoryLabel"
+                android:layout_width="356dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/category"
+                android:textAlignment="viewStart"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/addressTextField"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nameTextField" />
+
+            <Spinner
+                android:id="@+id/categorySpinnerDetail"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <Button
+                android:id="@+id/editButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onEditItemPress"
+                android:text="@string/update" />
+
+            <Button
+                android:id="@+id/removeButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onRemoveItemPress"
+                android:text="@string/remove" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

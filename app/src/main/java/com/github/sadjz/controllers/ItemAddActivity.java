@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import com.github.sadjz.R;
+
 import com.github.sadjz.consts.MessageIdentifier;
 import com.github.sadjz.datastructures.RestCallback;
 import com.github.sadjz.managers.DonationItemManager;

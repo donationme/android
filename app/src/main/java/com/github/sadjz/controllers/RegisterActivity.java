@@ -61,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
      * Called when register button pressed
      * @param view View of login view
      */
-    @SuppressWarnings("FeatureEnvy")
+    @SuppressWarnings({"FeatureEnvy", "WeakerAccess"})
     public void onRegisterPressed(final View view) {
 
         final AccountManager accountManager = new AccountManager();
@@ -82,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 usernameEditable.toString(),
                                 (UserType) typeSpinner.getSelectedItem()));
 
-        registerButton.setText("Abort");
+        registerButton.setText(R.string.abort);
 
         registerButton.setOnClickListener(
                 new View.OnClickListener() {
@@ -111,7 +111,7 @@ public class RegisterActivity extends AppCompatActivity {
                                             Snackbar.LENGTH_LONG);
                             snackbar.setAction("Action", null);
                             snackbar.show();
-                            registerButton.setText("Register");
+                            registerButton.setText(R.string.register);
                             registerButton.setOnClickListener(
                                     new View.OnClickListener() {
 
@@ -160,7 +160,7 @@ public class RegisterActivity extends AppCompatActivity {
                     @SuppressWarnings("unused")
                     @Override
                     public void invokeFailure() {
-                        registerButton.setText("Register");
+                        registerButton.setText(R.string.register);
                         registerButton.setOnClickListener(
                                 new View.OnClickListener() {
 

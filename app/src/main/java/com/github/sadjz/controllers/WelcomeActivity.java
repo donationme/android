@@ -31,7 +31,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     /**
      * On register pressed.
-     *
+     * @param view Activity view
      */
     @SuppressWarnings("unused")
     public void onRegisterPressed(View view) {

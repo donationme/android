@@ -25,7 +25,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/nameLabel"
+                android:id="@+id/typeLabel"
                 android:layout_width="356dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
@@ -43,7 +43,7 @@
                 android:layout_width="356dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
-                android:text="TextView"
+                android:text=""
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -69,7 +69,7 @@
                 android:layout_width="356dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
-                android:text="TextView"
+                android:text=""
                 app:layout_constraintBottom_toTopOf="@+id/nameLabel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -95,7 +95,7 @@
                 android:layout_width="356dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
-                android:text="TextView"
+                android:text=""
                 app:layout_constraintBottom_toTopOf="@+id/descriptionLabel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -121,7 +121,7 @@
                 android:layout_width="356dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
-                android:text="TextView"
+                android:text=""
                 app:layout_constraintBottom_toTopOf="@+id/quantityLabel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -147,7 +147,7 @@
                 android:layout_width="356dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
-                android:text="TextView"
+                android:text=""
                 app:layout_constraintBottom_toTopOf="@+id/categoryLabel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -158,7 +158,7 @@
                 android:id="@+id/itemsLabel"
                 android:layout_width="356dp"
                 android:layout_height="30dp"
-                android:text="Items" />
+                android:text="@string/items" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/items"
@@ -172,7 +172,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onAddItemPress"
-                android:text="ADD ITEM" />
+                android:text="@string/add" />
 
         </LinearLayout>
     </ScrollView>

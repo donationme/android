@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id= "@+id/searchRoot"
-    tools:context=".SearchActivity">
+    tools:context=".controllers.SearchActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -33,7 +33,9 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/search"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:importantForAutofill="no"
+                tools:ignore="UnusedAttribute" />
 
             <Button
                 android:id="@+id/selectBtn"
@@ -41,14 +43,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onSelectLocationOption"
-                android:text="Select Specific Location" />
+                android:text="@string/selectSpecificLocation" />
 
             <TextView
                 android:id="@+id/currentlySelectedText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Searching: All Locations"
+                android:text="@string/searchingAllLocations"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <android.support.v7.widget.Toolbar

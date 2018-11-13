@@ -32,7 +32,7 @@ import java.util.Objects;
 public class MapsActivity extends FragmentActivity
         implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private static final float MAP_ZOOM = 10.0f;
-
+    private GoogleMap googleMap;
     private RegionModel region;
     private final LocationManager locationManager = new LocationManager();
 
@@ -50,6 +50,26 @@ public class MapsActivity extends FragmentActivity
 
         mapFragment.getMapAsync(this);
     }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                LocationModel locationModel =
+                        data.getParcelableExtra(
+                                MessageIdentifier.Location
+                                        .getMessageIdentifier());
+                if ((locationModel != null) && (this.googleMap != null)) {
+
+                    this.onMapReady(this.googleMap);
+                }
+            }
+        }
+    }
+
 
     @Override
     public boolean onMarkerClick(Marker marker) {
@@ -86,7 +106,7 @@ public class MapsActivity extends FragmentActivity
     @SuppressWarnings("FeatureEnvy")
     @Override
     public void onMapReady(final GoogleMap googleMap) {
-
+        this.googleMap = googleMap;
         googleMap.setOnMarkerClickListener(this);
 
         RestCallback<RegionModel> locationCallback =

@@ -150,8 +150,8 @@ public class SearchActivity extends Activity
             this.currentLocationId = "";
             this.isSearchingAll = true;
             this.currentlySelectedText.setText("");
-            this.selectBtn.setText("Select Specific Region");
-            this.currentlySelectedText.setText("Searching: All Locations");
+            this.selectBtn.setText(R.string.selectSpecificLocation);
+            this.currentlySelectedText.setText(R.string.searchingAllLocations);
 
         } else {
             this.currentLocationId = "";
@@ -177,7 +177,7 @@ public class SearchActivity extends Activity
                 if (location != null) {
                     this.isSearchingAll = false;
                     this.donationItems = location.getDonationItems();
-                    this.selectBtn.setText("Select All Locations");
+                    this.selectBtn.setText(R.string.searchingAllLocations);
                     this.currentLocationId = location.getId();
                     this.currentlySelectedText.setText(
                             String.format(
@@ -189,9 +189,12 @@ public class SearchActivity extends Activity
             }
         }
     }
-
+    /**
+     * On Search
+     * @param query Search Query
+     */
     @SuppressWarnings("FeatureEnvy")
-    public void onSearch(String query) {
+    private void onSearch(String query) {
 
         final SearchManager searchManager = new SearchManager();
 

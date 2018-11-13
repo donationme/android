@@ -34,9 +34,14 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.loginBtn);
     }
 
+    /**
+     * On Login Pressed
+     * @param view View of Activity
+     */
+    @SuppressWarnings("WeakerAccess")
     public void onLoginPressed(final View view) {
         final AccountManager accountManager = new AccountManager();
-        loginBtn.setText("Abort");
+        loginBtn.setText(R.string.abort);
         final LoginActivity currentActivity = this;
 
         loginBtn.setOnClickListener(
@@ -78,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                         snackbar.setAction("Action", null);
                         snackbar.show();
 
-                        loginBtn.setText("Login");
+                        loginBtn.setText(R.string.login);
                         loginBtn.setOnClickListener(
                                 new View.OnClickListener() {
 

@@ -43,7 +43,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                tools:ignore="LabelFor" />
+                tools:ignore="LabelFor,UnusedAttribute"
+                android:importantForAutofill="no" />
 
             <TextView
                 android:id="@+id/descriptionLabel"
@@ -65,7 +66,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                tools:ignore="LabelFor" />
+                tools:ignore="LabelFor,UnusedAttribute"
+                android:importantForAutofill="no" />
 
             <TextView
                 android:id="@+id/quantityLabel"
@@ -87,7 +89,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                tools:ignore="LabelFor" />
+                tools:ignore="LabelFor,UnusedAttribute"
+                android:importantForAutofill="no" />
 
             <TextView
                 android:id="@+id/timeLabel"
@@ -108,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
-                android:text="TextView"
+                android:text=""
                 app:layout_constraintBottom_toTopOf="@+id/descriptionLabel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -139,14 +142,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onEditItemPress"
-                android:text="UPDATE ITEM" />
+                android:text="@string/update" />
 
             <Button
                 android:id="@+id/removeButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onRemoveItemPress"
-                android:text="REMOVE ITEM" />
+                android:text="@string/remove" />
 
         </LinearLayout>
     </ScrollView>

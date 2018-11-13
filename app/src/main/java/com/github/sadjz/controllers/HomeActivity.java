@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.github.sadjz.R;
+
 import com.github.sadjz.models.login.TokenModel;
 import com.github.sadjz.models.user.UserModel;
 import com.github.sadjz.models.user.UserType;
@@ -83,15 +84,14 @@ public class HomeActivity extends AppCompatActivity {
         typeLabel.setText(type.name());
         emailLabel.setText(userModel.getEmail());
         nameLabel.setText(userModel.getName());
-        mapDataBtn.setText("Map Data");
     }
 
     /**
      * On logout pressed.
-     *
+     * @param view Activity view
      */
     @SuppressWarnings("unused")
-    public void onLogoutPressed() {
+    public void onLogoutPressed(View view) {
         Intent intent = new Intent(this, WelcomeActivity.class);
         finishAffinity();
         startActivity(intent);
@@ -112,7 +112,7 @@ public class HomeActivity extends AppCompatActivity {
 
     /**
      * On search pressed.
-     *
+     * @param view the view
      */
     public void onSearchPressed(View view) {
         Intent intent = new Intent(this, SearchActivity.class);

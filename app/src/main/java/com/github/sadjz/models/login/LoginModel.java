@@ -8,9 +8,11 @@ import com.google.gson.annotations.SerializedName;
 @SuppressWarnings("unused")
 public class LoginModel {
 
+    @SuppressWarnings("FieldCanBeLocal")
     @SerializedName("username")
     private final String username;
 
+    @SuppressWarnings("FieldCanBeLocal")
     @SerializedName("password")
     private final String password;
 

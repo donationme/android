@@ -17,6 +17,7 @@ import com.github.sadjz.models.location.LocationModel;
 import com.github.sadjz.models.user.UserModel;
 import com.github.sadjz.models.user.UserType;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -75,10 +76,11 @@ public class LocationDetailsActivity extends AppCompatActivity
     }
 
     private void updateList(List<DonationItemModel> items) {
-        ArrayList<String> itemNames = new ArrayList<>();
+        Collection<String> itemNames = new ArrayList<>();
         for (DonationItemModel donationItem : items) {
             itemNames.add(donationItem.getName());
         }
+        this.items = items;
         itemAdapter.updateList(itemNames);
     }
 
@@ -97,7 +99,7 @@ public class LocationDetailsActivity extends AppCompatActivity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        ArrayList<DonationItemModel> oldItems = new ArrayList<>(this.location.getDonationItems());
+        List<DonationItemModel> oldItems = new ArrayList<>(this.location.getDonationItems());
 
         if (requestCode == 1) {
             if (resultCode == MessageIdentifier.DonationEditItem.ordinal()) {

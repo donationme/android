@@ -70,6 +70,7 @@ public final class LocationModel implements Parcelable {
         type = in.readString();
         phone = in.readString();
         website = in.readString();
+        //noinspection unchecked
         this.donationItems =  in.readArrayList(DonationItemModel.class.getClassLoader());
         id = in.readString();
     }

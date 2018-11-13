@@ -1,4 +1,5 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--suppress AndroidElementNotAllowed -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app2="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -20,7 +21,8 @@
             app2:layout_constraintHorizontal_bias="0.5"
             app2:layout_constraintStart_toStartOf="parent"
             app2:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:ignore="LabelFor" />
+            tools:ignore="LabelFor,UnusedAttribute"
+            android:importantForAutofill="no" />
 
         <EditText
             android:id="@+id/nameTextField"
@@ -34,7 +36,8 @@
             app2:layout_constraintHorizontal_bias="0.5"
             app2:layout_constraintStart_toStartOf="parent"
             app2:layout_constraintTop_toBottomOf="@+id/textView5"
-            tools:ignore="LabelFor" />
+            tools:ignore="LabelFor,UnusedAttribute"
+            android:importantForAutofill="no" />
 
         <EditText
             android:id="@+id/usernameTextField"
@@ -47,7 +50,8 @@
             app2:layout_constraintHorizontal_bias="0.5"
             app2:layout_constraintStart_toStartOf="parent"
             app2:layout_constraintTop_toBottomOf="@+id/textView2"
-            tools:ignore="LabelFor" />
+            tools:ignore="LabelFor,UnusedAttribute"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/textView2"
@@ -146,4 +150,4 @@
             app2:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     </android.support.constraint.ConstraintLayout>
-</FrameLayout>
+</merge>
