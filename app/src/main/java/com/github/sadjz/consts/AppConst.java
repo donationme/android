@@ -9,5 +9,5 @@ public final class AppConst {
     /**
      * Important! Please change this to your own local ip address
      */
-    public static final String serverAddress = "10.0.1.17";
+    public static final String serverAddress = "143.215.90.18";
 }

@@ -14,7 +14,7 @@ import okhttp3.RequestBody;
 /**
  * The type Rest manager.
  */
-class RestManager {
+public class RestManager {
     private final Call.Factory client = new OkHttpClient();
     private static final String serverAddress =
             String.format("http://%s:5000/", AppConst.serverAddress);

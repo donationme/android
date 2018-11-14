@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * The type Token model.
  */
+@SuppressWarnings("ClassWithTooManyDependents")
 public class TokenModel {
 
     /**

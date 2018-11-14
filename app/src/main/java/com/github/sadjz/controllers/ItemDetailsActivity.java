@@ -40,7 +40,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
     private DonationItemModel item;
     private final DonationItemManager donationItemManager = new DonationItemManager();
 
-    @SuppressWarnings("FeatureEnvy")
+    @SuppressWarnings({"FeatureEnvy", "OverlyLongMethod"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
