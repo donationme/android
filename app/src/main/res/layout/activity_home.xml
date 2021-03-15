@@ -1,0 +1,108 @@
+<!--suppress AndroidElementNotAllowed, AndroidElementNotAllowed, AndroidElementNotAllowed, AndroidElementNotAllowed -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app2="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.github.sadjz.controllers.LoginActivity">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            app2:layout_constraintEnd_toEndOf="parent"
+            app2:layout_constraintStart_toStartOf="parent"
+            app2:layout_constraintTop_toTopOf="parent">
+
+
+            <Button
+                android:id="@+id/searchBtn"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:drawableBottom="@drawable/ic_search_black_40dp"
+                android:onClick="onSearchPressed" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/mapDataBtn"
+
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:drawableBottom="@drawable/ic_map_black_40dp"
+                android:onClick="onMapDataPressed" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="@drawable/ic_launcher_foreground"
+            android:layout_width="382dp"
+            android:layout_height="495dp"
+            android:orientation="vertical"
+            app2:layout_constraintBottom_toBottomOf="parent"
+            app2:layout_constraintEnd_toEndOf="parent"
+            app2:layout_constraintStart_toStartOf="parent"
+            app2:layout_constraintTop_toTopOf="parent">
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+            <TextView
+
+                android:id="@+id/emailLabel"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:text="@string/userEmail"
+                android:textAlignment="center"
+                app2:layout_constraintBottom_toTopOf="@+id/logoutBtn"
+                />
+
+            <TextView
+                android:id="@+id/typeLabel"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:text="@string/type"
+                android:textAlignment="center"
+
+                />
+
+            <TextView
+                android:id="@+id/nameLabel"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:text="@string/name"
+                android:textAlignment="center"
+
+                />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="280dp" />
+
+            <Button
+                android:id="@+id/logoutBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onLogoutPressed"
+                android:text="@string/logout"
+                app2:layout_constraintEnd_toEndOf="parent"
+                app2:layout_constraintStart_toStartOf="parent"
+                app2:layout_constraintTop_toBottomOf="@+id/emailLabel" />
+
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</merge>

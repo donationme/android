@@ -1,0 +1,35 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">SadJZ</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="register">Register</string>
+    <string name="username">Username</string>
+    <string name="user" tools:keep="@string/user">User</string>
+    <string name="name">Name</string>
+    <string name="userEmail">Email</string>
+    <string name="userType">Type</string>
+    <string name="backToWelcome" tools:keep="@string/backToWelcome">Back to Welcome</string>
+    <string name="confirmPassword" tools:keep="@string/confirmPassword">Confirm Password</string>
+    <string name="password">Password</string>
+    <string name="key" tools:keep="@string/key">Key</string>
+    <string name="address">Address</string>
+    <string name="phone">Phone</string>
+    <string name="website">Website</string>
+    <string name="type">Type</string>
+    <string name="category">Category</string>
+    <string name="description">Description</string>
+    <string name="time">Time</string>
+    <string name="quantity">Quantity</string>
+    <string name="search">Search</string>
+    <string name="title_activity_search" tools:keep="@string/title_activity_search">SearchActivity</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="welcomeTo">Welcome to</string>
+    <string name="update">Update</string>
+    <string name="remove">Remove</string>
+    <string name="add">Add</string>
+    <string name="items">Items</string>
+    <string name="selectSpecificLocation">Select Specific Location</string>
+    <string name="searchingAllLocations">Searching: All Locations</string>
+    <string name="abort">Abort</string>
+
+</resources>
